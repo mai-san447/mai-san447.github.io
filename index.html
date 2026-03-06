@@ -10,697 +10,577 @@
     <title>EMKO / Morune</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+JP:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #ffffff;
-            --bg-sub: #fafafa;
-            --text: #1a1a2e;
-            --text-sub: #7a7a8e;
-            --border: rgba(0,0,0,0.06);
-            --shadow: 0 2px 16px rgba(0,0,0,0.06);
-            --shadow-hover: 0 8px 32px rgba(0,0,0,0.10);
-            --radius: 20px;
-            --radius-sm: 14px;
-            --max-w: 960px;
-            --transition: cubic-bezier(0.16, 1, 0.3, 1);
-
-            /* section colors */
-            --c-hero: #7c5cfc;
-            --c-hero-light: #ece7ff;
-            --c-works: #f97066;
-            --c-works-light: #fff1f0;
-            --c-profile: #10b981;
-            --c-profile-light: #ecfdf5;
-            --c-links: #3b82f6;
-            --c-links-light: #eff6ff;
-            --c-contact: #f59e0b;
-            --c-contact-light: #fffbeb;
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            -webkit-font-smoothing: antialiased;
+            background: #faf8f5;
+            color: #1a1a1a;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         img { display: block; }
+        ::selection { background: #e8d5b0; color: #1a1a1a; }
 
-        /* --- animations --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
+        /* --- reveal --- */
+        .rv { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(.22,1,.36,1), transform 1s cubic-bezier(.22,1,.36,1); }
+        .rv.vis { opacity: 1; transform: none; }
+        .rv.d1 { transition-delay: .15s; }
+        .rv.d2 { transition-delay: .3s; }
+        .rv.d3 { transition-delay: .45s; }
+
+        /* parallax helper */
+        [data-speed] { will-change: transform; }
+
+        /* --- topbar --- */
+        .topbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 0 3rem; height: 52px;
+            display: flex; justify-content: space-between; align-items: center;
+            mix-blend-mode: difference;
         }
-        .reveal.visible { opacity: 1; transform: none; }
-        .reveal.d1 { transition-delay: 0.1s; }
-        .reveal.d2 { transition-delay: 0.2s; }
-        .reveal.d3 { transition-delay: 0.3s; }
+        .topbar a { color: #fff; text-decoration: none; font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; }
+        .topbar-logo { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; letter-spacing: .02em !important; }
+        .topbar-nav { display: flex; gap: 2rem; }
 
-        /* --- nav --- */
-        nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            padding: 0 2rem;
-            height: 56px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav-logo {
-            font-family: 'Kosugi Maru', sans-serif;
-            font-size: 0.92rem;
-            letter-spacing: 0.08em;
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .nav-items { display: flex; align-items: center; gap: 1.8rem; }
-
-        .nav-items a {
-            color: var(--text-sub);
-            text-decoration: none;
-            font-size: 0.75rem;
-            letter-spacing: 0.06em;
-            transition: color 0.2s;
-        }
-        .nav-items a:hover { color: var(--text); }
-
-        .nav-cta {
-            padding: 0.45rem 1.2rem;
-            background: var(--c-hero);
-            color: #fff !important;
-            font-weight: 700;
-            font-size: 0.72rem !important;
-            border-radius: 50px;
-            letter-spacing: 0.04em;
-            transition: opacity 0.2s;
-        }
-        .nav-cta:hover { opacity: 0.85; color: #fff !important; }
-
-        .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-        .hamburger span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: 0.3s; border-radius: 2px; }
+        /* hamburger for mobile */
+        .ham { display: none; background: none; border: none; cursor: pointer; }
+        .ham span { display: block; width: 22px; height: 1.5px; background: #fff; margin: 5px 0; }
 
         /* --- hero --- */
         .hero {
             min-height: 100vh;
             min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 7rem 2rem 4rem;
-            position: relative;
-            background: linear-gradient(160deg, var(--c-hero-light) 0%, #fff 40%, #fff 60%, var(--c-works-light) 100%);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(124,92,252,0.08), transparent 70%);
-            top: 10%; right: 10%;
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 300px; height: 300px;
-            background: radial-gradient(circle, rgba(249,112,102,0.06), transparent 70%);
-            bottom: 15%; left: 10%;
-            pointer-events: none;
-        }
-
-        .hero-inner { position: relative; max-width: 620px; }
-
-        .hero .avatar {
-            width: 100px; height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #fff;
-            box-shadow: 0 4px 20px rgba(124,92,252,0.15);
-            margin: 0 auto 1.8rem;
-        }
-
-        .hero h1 {
-            font-weight: 900;
-            font-size: clamp(1.8rem, 5.5vw, 3.2rem);
-            line-height: 1.3;
-            margin-bottom: 1.2rem;
-            letter-spacing: -0.02em;
-            color: var(--text);
-        }
-
-        .hero h1 .hl {
-            background: linear-gradient(135deg, var(--c-hero), #f97066, var(--c-contact));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-desc {
-            font-size: 0.92rem;
-            font-weight: 400;
-            color: var(--text-sub);
-            line-height: 1.9;
-            margin-bottom: 2.2rem;
-            max-width: 440px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-actions { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.85rem 2.2rem;
-            font-weight: 700;
-            font-size: 0.85rem;
-            border-radius: 50px;
-            text-decoration: none;
-            letter-spacing: 0.04em;
-            transition: transform 0.25s var(--transition), box-shadow 0.25s;
-        }
-        .btn:hover { transform: translateY(-2px); }
-
-        .btn-primary {
-            background: var(--c-hero);
-            color: #fff;
-        }
-        .btn-primary:hover { box-shadow: 0 8px 24px rgba(124,92,252,0.3); }
-
-        .btn-ghost {
-            background: #fff;
-            color: var(--text);
-            border: 1.5px solid var(--border);
-        }
-        .btn-ghost:hover { border-color: rgba(0,0,0,0.15); box-shadow: var(--shadow); }
-
-        .scroll-hint {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.4rem;
-            color: var(--text-sub);
-        }
-        .scroll-hint span { font-size: 0.6rem; letter-spacing: 0.2em; }
-        .scroll-line {
-            width: 1px; height: 28px;
-            background: linear-gradient(to bottom, var(--text-sub), transparent);
-            animation: scroll-anim 2s ease-in-out infinite;
-        }
-        @keyframes scroll-anim {
-            0% { opacity: 1; transform: scaleY(1); }
-            50% { opacity: 0.3; transform: scaleY(0.4); }
-            100% { opacity: 1; transform: scaleY(1); }
-        }
-
-        /* --- section --- */
-        .section {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            padding: 5rem 2rem;
-        }
-
-        .section-label {
-            font-family: 'Kosugi Maru', sans-serif;
-            font-size: 0.68rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            display: inline-block;
-            padding: 0.25rem 0.8rem;
-            border-radius: 50px;
-        }
-
-        .section-heading {
-            font-size: clamp(1.3rem, 3vw, 1.8rem);
-            font-weight: 900;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-sub {
-            font-size: 0.82rem;
-            color: var(--text-sub);
-            line-height: 1.7;
-            margin-bottom: 2.2rem;
-            max-width: 480px;
-        }
-
-        /* color per section */
-        .sec-works .section-label { background: var(--c-works-light); color: var(--c-works); }
-        .sec-profile .section-label { background: var(--c-profile-light); color: var(--c-profile); }
-        .sec-links .section-label { background: var(--c-links-light); color: var(--c-links); }
-
-        .section-band {
-            padding: 5rem 0;
-        }
-        .section-band.band-works { background: var(--c-works-light); }
-        .section-band.band-profile { background: var(--bg); }
-        .section-band.band-links { background: var(--c-links-light); }
-
-        /* --- bento --- */
-        .bento {
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1rem;
-        }
-
-        .b-card {
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
+            grid-template-columns: 1fr 1fr;
+            position: relative;
             overflow: hidden;
-            text-decoration: none;
-            color: inherit;
+        }
+
+        .hero-left {
             display: flex;
             flex-direction: column;
-            box-shadow: var(--shadow);
-            transition: transform 0.4s var(--transition), box-shadow 0.4s var(--transition);
+            justify-content: flex-end;
+            padding: 8rem 4rem 4rem;
+            position: relative;
+            z-index: 2;
         }
 
-        .b-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .b-card.c1 { grid-column: span 7; }
-        .b-card.c2 { grid-column: span 5; }
-        .b-card.c3 { grid-column: span 4; }
-        .b-card.c4 { grid-column: span 4; }
-        .b-card.c5 { grid-column: span 4; }
-
-        .b-img-wrap { position: relative; overflow: hidden; }
-
-        .b-img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            transition: transform 0.6s var(--transition);
-        }
-        .b-card:hover .b-img { transform: scale(1.03); }
-        .b-card.c2 .b-img { height: 180px; }
-        .b-card.c3 .b-img,
-        .b-card.c4 .b-img,
-        .b-card.c5 .b-img { height: 150px; }
-
-        .b-body {
-            padding: 1.1rem 1.3rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .b-tag {
-            font-size: 0.62rem;
-            font-weight: 700;
-            color: var(--c-works);
-            letter-spacing: 0.1em;
+        .hero-eyebrow {
+            font-size: .68rem;
+            letter-spacing: .3em;
             text-transform: uppercase;
-            margin-bottom: 0.4rem;
+            color: #b8a080;
+            margin-bottom: 1.5rem;
         }
 
-        .b-title {
-            font-size: 0.92rem;
-            font-weight: 700;
-            line-height: 1.5;
-            margin-bottom: 0.3rem;
-        }
-
-        .b-desc {
-            font-size: 0.76rem;
-            color: var(--text-sub);
-            line-height: 1.65;
-            margin-top: auto;
-            padding-top: 0.4rem;
-        }
-
-        .b-icon-card {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 1.5rem 1.3rem;
-        }
-
-        .b-icon-card .b-icon { font-size: 2rem; margin-bottom: 0.8rem; }
-
-        /* icon card color accents */
-        .b-card.c3 { background: #fff7ed; border-color: rgba(249,115,22,0.1); }
-        .b-card.c3 .b-tag { color: #ea580c; }
-        .b-card.c4 { background: #fdf2f8; border-color: rgba(236,72,153,0.1); }
-        .b-card.c4 .b-tag { color: #db2777; }
-        .b-card.c5 { background: #f0f9ff; border-color: rgba(59,130,246,0.1); }
-        .b-card.c5 .b-tag { color: #2563eb; }
-
-        /* --- profile --- */
-        .profile-card {
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            gap: 3rem;
-            align-items: start;
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 2.5rem;
-            box-shadow: var(--shadow);
-        }
-
-        .profile-photo {
-            width: 100%;
-            aspect-ratio: 4 / 5;
-            object-fit: cover;
-            border-radius: var(--radius-sm);
-        }
-
-        .profile-body h3 {
-            font-size: 1.4rem;
-            font-weight: 900;
-            margin-bottom: 0.2rem;
-        }
-
-        .profile-body .role {
-            font-size: 0.78rem;
-            color: var(--c-profile);
-            margin-bottom: 1.2rem;
-            letter-spacing: 0.03em;
-        }
-
-        .profile-body p {
-            font-size: 0.84rem;
-            line-height: 2;
-            color: var(--text-sub);
-            margin-bottom: 1rem;
-        }
-
-        .tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-
-        .tags span {
-            padding: 0.35rem 0.9rem;
-            border-radius: 50px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-        }
-
-        .tags span:nth-child(6n+1) { background: var(--c-hero-light); color: var(--c-hero); }
-        .tags span:nth-child(6n+2) { background: var(--c-works-light); color: var(--c-works); }
-        .tags span:nth-child(6n+3) { background: var(--c-profile-light); color: var(--c-profile); }
-        .tags span:nth-child(6n+4) { background: var(--c-contact-light); color: #d97706; }
-        .tags span:nth-child(6n+5) { background: var(--c-links-light); color: var(--c-links); }
-        .tags span:nth-child(6n+6) { background: #fdf2f8; color: #db2777; }
-
-        /* --- links --- */
-        .links-flex {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.8rem;
-        }
-
-        .l-card {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.95rem 1.1rem;
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            text-decoration: none;
-            color: var(--text);
-            font-size: 0.82rem;
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 6vw, 5rem);
             font-weight: 400;
-            box-shadow: var(--shadow);
-            transition: transform 0.25s var(--transition), box-shadow 0.25s;
-        }
-
-        .l-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .l-card .l-ico {
-            width: 38px; height: 38px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        /* each link card icon has its own color */
-        .l-card:nth-child(1) .l-ico { background: #fdf2f8; }
-        .l-card:nth-child(2) .l-ico { background: #fff7ed; }
-        .l-card:nth-child(3) .l-ico { background: var(--c-hero-light); }
-        .l-card:nth-child(4) .l-ico { background: var(--c-profile-light); }
-        .l-card:nth-child(5) .l-ico { background: var(--c-contact-light); }
-        .l-card:nth-child(6) .l-ico { background: var(--c-links-light); }
-
-        .l-card .l-name { flex: 1; }
-        .l-card .l-arrow { color: #ccc; font-size: 1rem; transition: transform 0.2s; }
-        .l-card:hover .l-arrow { transform: translateX(3px); color: var(--text-sub); }
-
-        /* --- CTA --- */
-        .cta {
-            text-align: center;
-            padding: 5rem 2rem;
-            background: linear-gradient(160deg, var(--c-contact-light) 0%, #fff 50%, var(--c-hero-light) 100%);
-            position: relative;
-        }
-
-        .cta-inner {
-            position: relative;
-            max-width: 520px;
-            margin: 0 auto;
-        }
-
-        .cta .section-label {
-            background: var(--c-contact-light);
-            color: #d97706;
-        }
-
-        .cta h2 {
-            font-size: clamp(1.2rem, 3vw, 1.7rem);
-            font-weight: 900;
-            margin-bottom: 0.6rem;
-        }
-
-        .cta p {
-            font-size: 0.85rem;
-            color: var(--text-sub);
-            line-height: 1.8;
+            line-height: 1.1;
+            letter-spacing: -.03em;
             margin-bottom: 2rem;
         }
 
-        .cta-options { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
-
-        .btn-cta-primary {
-            background: linear-gradient(135deg, var(--c-hero), #f97066);
-            color: #fff;
+        .hero-title em {
+            font-style: italic;
+            color: #c47a5a;
         }
-        .btn-cta-primary:hover { box-shadow: 0 8px 24px rgba(124,92,252,0.25); }
 
-        .btn-cta-ghost {
-            background: #fff;
-            color: var(--text);
-            border: 1.5px solid var(--border);
+        .hero-desc {
+            font-size: .88rem;
+            font-weight: 300;
+            line-height: 2;
+            color: #666;
+            max-width: 380px;
         }
-        .btn-cta-ghost:hover { box-shadow: var(--shadow); }
+
+        .hero-right {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-caption {
+            position: absolute;
+            bottom: 3rem;
+            right: 3rem;
+            writing-mode: vertical-rl;
+            font-size: .65rem;
+            letter-spacing: .2em;
+            color: rgba(255,255,255,.6);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 3rem;
+            left: 4rem;
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            z-index: 2;
+        }
+
+        .hero-scroll-line {
+            width: 48px; height: 1px;
+            background: #1a1a1a;
+            animation: line-anim 2s ease-in-out infinite;
+        }
+
+        @keyframes line-anim {
+            0%,100% { transform: scaleX(1); transform-origin: left; }
+            50% { transform: scaleX(.4); transform-origin: left; }
+        }
+
+        .hero-scroll span { font-size: .6rem; letter-spacing: .25em; text-transform: uppercase; color: #999; }
+
+        /* --- editorial section --- */
+        .ed-section {
+            padding: 10rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ed-label {
+            font-size: .6rem;
+            letter-spacing: .35em;
+            text-transform: uppercase;
+            color: #b8a080;
+            margin-bottom: 1rem;
+        }
+
+        .ed-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4.5vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        .ed-heading em { font-style: italic; color: #c47a5a; }
+
+        .ed-sub {
+            font-size: .85rem;
+            font-weight: 300;
+            color: #888;
+            line-height: 1.8;
+            max-width: 480px;
+        }
+
+        /* --- works --- */
+        .works-grid {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .w-card {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+        }
+
+        .w-card-img-wrap {
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .w-card-img {
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            object-fit: cover;
+            transition: transform .8s cubic-bezier(.22,1,.36,1);
+        }
+
+        .w-card:hover .w-card-img { transform: scale(1.04); }
+
+        .w-card-body { margin-top: 1.2rem; }
+
+        .w-card-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-style: italic;
+            color: rgba(0,0,0,.06);
+            position: absolute;
+            top: -1.5rem;
+            left: -.5rem;
+        }
+
+        .w-card-tag {
+            font-size: .6rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: #b8a080;
+            margin-bottom: .4rem;
+        }
+
+        .w-card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: .3rem;
+        }
+
+        .w-card-desc {
+            font-size: .78rem;
+            color: #999;
+            line-height: 1.7;
+        }
+
+        .works-row2 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .w-mini {
+            text-decoration: none;
+            color: inherit;
+            padding: 2rem;
+            border: 1px solid rgba(0,0,0,.06);
+            border-radius: 4px;
+            transition: border-color .3s, transform .4s cubic-bezier(.22,1,.36,1);
+            position: relative;
+        }
+
+        .w-mini:hover { border-color: rgba(0,0,0,.15); transform: translateY(-4px); }
+
+        .w-mini-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+
+        .w-mini .w-card-tag { margin-bottom: .3rem; }
+        .w-mini .w-card-title { font-size: .92rem; }
+
+        /* --- profile --- */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 80vh;
+        }
+
+        .profile-img-side {
+            position: relative;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .profile-img-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-text-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5rem 4rem;
+            background: #f2ede6;
+        }
+
+        .profile-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: .3rem;
+        }
+
+        .profile-role {
+            font-size: .75rem;
+            letter-spacing: .15em;
+            color: #b8a080;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .profile-bio {
+            font-size: .85rem;
+            line-height: 2.1;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+        }
+
+        .profile-tags span {
+            padding: .3rem .9rem;
+            border: 1px solid rgba(0,0,0,.1);
+            border-radius: 50px;
+            font-size: .68rem;
+            color: #888;
+            letter-spacing: .03em;
+        }
+
+        /* --- links --- */
+        .links-section { background: #1a1a1a; color: #f0ede8; }
+
+        .links-section .ed-label { color: #c47a5a; }
+        .links-section .ed-heading { color: #f0ede8; }
+        .links-section .ed-sub { color: rgba(255,255,255,.4); }
+
+        .links-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,.08);
+        }
+
+        .lk {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.8rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            border-right: 1px solid rgba(255,255,255,.08);
+            text-decoration: none;
+            color: #f0ede8;
+            font-size: .85rem;
+            transition: background .3s;
+        }
+
+        .lk:nth-child(3n) { border-right: none; }
+
+        .lk:hover { background: rgba(255,255,255,.04); }
+
+        .lk-left { display: flex; align-items: center; gap: .8rem; }
+        .lk-ico { font-size: 1.1rem; }
+        .lk-arrow { font-size: .9rem; color: rgba(255,255,255,.25); transition: transform .3s, color .3s; }
+        .lk:hover .lk-arrow { transform: translateX(4px); color: #c47a5a; }
+
+        /* --- CTA --- */
+        .cta-section {
+            padding: 10rem 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-section .ed-heading { margin: 0 auto 1rem; }
+        .cta-section .ed-sub { margin: 0 auto 3rem; }
+
+        .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: 1rem 2.5rem;
+            font-size: .82rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            border-radius: 0;
+            text-decoration: none;
+            transition: all .3s;
+        }
+
+        .cta-primary {
+            background: #1a1a1a;
+            color: #f0ede8;
+        }
+        .cta-primary:hover { background: #c47a5a; }
+
+        .cta-ghost {
+            background: transparent;
+            color: #1a1a1a;
+            border: 1.5px solid #1a1a1a;
+        }
+        .cta-ghost:hover { background: #1a1a1a; color: #f0ede8; }
 
         /* --- footer --- */
         footer {
-            text-align: center;
-            padding: 2.5rem 2rem;
-            font-size: 0.68rem;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: .65rem;
             color: #bbb;
-            border-top: 1px solid var(--border);
-            background: var(--bg);
+            letter-spacing: .1em;
+            border-top: 1px solid rgba(0,0,0,.06);
         }
+
+        footer a { color: #999; text-decoration: none; }
+        footer a:hover { color: #1a1a1a; }
 
         /* --- responsive --- */
         @media (max-width: 768px) {
-            nav { padding: 0 1.2rem; }
-            .hamburger { display: block; }
-            .nav-items {
-                display: none;
-                position: absolute;
-                top: 56px; left: 0; right: 0;
-                background: rgba(255,255,255,0.97);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                padding: 1.5rem 2rem;
-                gap: 1.2rem;
-                border-bottom: 1px solid var(--border);
+            .topbar { padding: 0 1.5rem; }
+            .topbar-nav { display: none; }
+            .topbar-nav.open {
+                display: flex;
+                position: fixed; top: 52px; left: 0; right: 0;
+                flex-direction: column; padding: 2rem;
+                background: rgba(26,26,26,.95); backdrop-filter: blur(20px);
+                gap: 1.5rem;
             }
-            .nav-items.open { display: flex; }
+            .ham { display: block; }
 
-            .bento { grid-template-columns: repeat(2, 1fr); }
-            .b-card.c1, .b-card.c2 { grid-column: span 2; }
-            .b-card.c3, .b-card.c4, .b-card.c5 { grid-column: span 1; }
-            .b-card.c1 .b-img { height: 200px; }
+            .hero { grid-template-columns: 1fr; min-height: auto; }
+            .hero-left { padding: 7rem 2rem 3rem; }
+            .hero-right { height: 60vh; }
+            .hero-scroll { left: 2rem; bottom: 2rem; }
 
-            .profile-card {
-                grid-template-columns: 1fr;
-                text-align: center;
-                padding: 2rem 1.5rem;
-            }
-            .profile-photo { max-width: 200px; margin: 0 auto; aspect-ratio: 1; }
-            .tags { justify-content: center; }
-            .links-flex { grid-template-columns: 1fr 1fr; }
+            .ed-section { padding: 5rem 2rem; }
+
+            .works-grid { grid-template-columns: 1fr; }
+            .works-row2 { grid-template-columns: 1fr; }
+
+            .profile-layout { grid-template-columns: 1fr; }
+            .profile-img-side { height: 50vh; }
+            .profile-text-side { padding: 3rem 2rem; }
+
+            .links-row { grid-template-columns: 1fr; }
+            .lk { border-right: none; }
+
+            .cta-section { padding: 5rem 2rem; }
+
+            footer { flex-direction: column; gap: .5rem; padding: 2rem; }
         }
 
         @media (max-width: 480px) {
-            .hero { padding: 6rem 1.2rem 3rem; }
-            .section { padding: 3.5rem 1.2rem; }
-            .bento { grid-template-columns: 1fr; gap: 0.8rem; }
-            .b-card.c1, .b-card.c2,
-            .b-card.c3, .b-card.c4, .b-card.c5 { grid-column: span 1; }
-            .b-card .b-img { height: 180px; }
-            .links-flex { grid-template-columns: 1fr; }
-            .hero-actions { flex-direction: column; align-items: center; }
-            .btn { width: 100%; justify-content: center; }
+            .hero-title { font-size: 2.2rem; }
+            .ed-heading { font-size: 1.8rem; }
+            .cta-actions { flex-direction: column; align-items: center; }
+            .cta-btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- nav -->
-    <nav>
-        <a href="#" class="nav-logo">EMKO / Morune</a>
-        <button class="hamburger" aria-label="Menu" onclick="document.querySelector('.nav-items').classList.toggle('open')">
+    <!-- topbar -->
+    <div class="topbar">
+        <a href="#" class="topbar-logo">Morune</a>
+        <button class="ham" aria-label="Menu" onclick="document.querySelector('.topbar-nav').classList.toggle('open')">
             <span></span><span></span><span></span>
         </button>
-        <div class="nav-items">
+        <div class="topbar-nav">
             <a href="#works">Works</a>
             <a href="#profile">Profile</a>
             <a href="#links">Links</a>
-            <a href="#contact" class="nav-cta">Contact</a>
+            <a href="#contact">Contact</a>
         </div>
-    </nav>
+    </div>
 
     <!-- hero -->
     <section class="hero">
-        <div class="hero-inner">
+        <div class="hero-left">
+            <div class="hero-eyebrow rv">EMKO / Morune</div>
+            <h1 class="hero-title rv d1">
+                AIでつくった<br>
+                音楽を、<br>
+                <em>手に取れる<br>かたち</em>に。
+            </h1>
+            <p class="hero-desc rv d2">
+                AIで音楽をつくり、キーホルダー型ミニCDにして届ける。
+                スマホをかざすと音楽が流れる、ちょっと不思議な体験。
+                贈りものにも、思い出の記録にも。
+            </p>
+            <div class="hero-scroll">
+                <div class="hero-scroll-line"></div>
+                <span>Scroll</span>
+            </div>
+        </div>
+        <div class="hero-right">
             <img
                 src="https://assets.st-note.com/production/uploads/images/163938797/profile_839eb2b4d99903cd1ef6c59025964b16.jpg"
                 alt="EMKO"
-                class="avatar reveal"
+                class="hero-img"
+                data-speed="0.3"
             >
-            <h1 class="reveal d1">AIでつくった音楽を<br><span class="hl">手に取れるかたち</span>に</h1>
-            <p class="hero-desc reveal d2">
-                AIで音楽をつくり、キーホルダー型ミニCDにして届ける。<br>
-                スマホをかざすと音楽が流れる、ちょっと不思議な体験。<br>贈りものにも、思い出の記録にも。
-            </p>
-            <div class="hero-actions reveal d3">
-                <a href="#contact" class="btn btn-primary">お問い合わせ</a>
-                <a href="#works" class="btn btn-ghost">Works を見る</a>
-            </div>
-        </div>
-        <div class="scroll-hint">
-            <span>SCROLL</span>
-            <div class="scroll-line"></div>
+            <div class="hero-caption">EMKO / Morune &mdash; 2026</div>
         </div>
     </section>
 
     <!-- works -->
-    <div class="section-band band-works">
-        <section class="section sec-works" id="works">
-            <div class="reveal">
-                <div class="section-label">Works</div>
-                <h2 class="section-heading">つくったもの</h2>
-                <p class="section-sub">キーホルダー型ミニCD、書籍、音楽など、これまでの活動。</p>
-            </div>
-            <div class="bento">
-                <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="b-card c1 reveal">
-                    <div class="b-img-wrap">
-                        <img src="https://techbookfest.org/api/product/ogp/image/6T2GqQjWR3yTbEMGCv24tX" alt="SUNO AIでつくる音のかたち" class="b-img">
-                    </div>
-                    <div class="b-body">
-                        <div class="b-tag">Book / 技術書典</div>
-                        <div class="b-title">SUNO AIでつくる"音のかたち" ― AIミニCD制作入門</div>
-                        <div class="b-desc">AIでの楽曲づくりからジャケットデザイン、NFC設定まで。キーホルダー型ミニCD制作の全プロセスを解説。</div>
-                    </div>
-                </a>
-                <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="b-card c2 reveal d1">
-                    <div class="b-img-wrap">
-                        <img src="https://assets.st-note.com/production/uploads/images/250502129/rectangle_large_type_2_8fcc10b28e2493bfcf822cb709531727.png" alt="Bookathon参加記録" class="b-img">
-                    </div>
-                    <div class="b-body">
-                        <div class="b-tag">Note / Blog</div>
-                        <div class="b-title">Bookathon参加記録</div>
-                        <div class="b-desc">3日間で本を書く、AIとの10時間。制作の裏側を記録。</div>
-                    </div>
-                </a>
-                <a href="https://morune.store" target="_blank" rel="noopener" class="b-card c3 reveal">
-                    <div class="b-icon-card">
-                        <div class="b-icon">&#x1F4BF;</div>
-                        <div class="b-tag">Shop</div>
-                        <div class="b-title">MORUNE 公式ストア</div>
-                        <div class="b-desc">ミニCDキーホルダー・グッズの販売</div>
-                    </div>
-                </a>
-                <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="b-card c4 reveal d1">
-                    <div class="b-icon-card">
-                        <div class="b-icon">&#x1F3B6;</div>
-                        <div class="b-tag">Music</div>
-                        <div class="b-title">SoundCloud</div>
-                        <div class="b-desc">AIで生成した楽曲を公開中</div>
-                    </div>
-                </a>
-                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="b-card c5 reveal d2">
-                    <div class="b-icon-card">
-                        <div class="b-icon">&#x1F4F8;</div>
-                        <div class="b-tag">Gallery</div>
-                        <div class="b-title">Instagram</div>
-                        <div class="b-desc">制作過程やイベントの様子</div>
-                    </div>
-                </a>
-            </div>
-        </section>
-    </div>
+    <section class="ed-section" id="works">
+        <div class="rv">
+            <div class="ed-label">01 &mdash; Works</div>
+            <h2 class="ed-heading">つくった<em>もの</em></h2>
+            <p class="ed-sub">キーホルダー型ミニCD、書籍、音楽。<br>これまでの活動をまとめています。</p>
+        </div>
+        <div class="works-grid">
+            <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="w-card rv">
+                <div class="w-card-num">01</div>
+                <div class="w-card-img-wrap">
+                    <img src="https://techbookfest.org/api/product/ogp/image/6T2GqQjWR3yTbEMGCv24tX" alt="SUNO AIでつくる音のかたち" class="w-card-img">
+                </div>
+                <div class="w-card-body">
+                    <div class="w-card-tag">Book / 技術書典</div>
+                    <div class="w-card-title">SUNO AIでつくる"音のかたち" ― AIミニCD制作入門</div>
+                    <div class="w-card-desc">AIでの楽曲づくりからジャケットデザイン、NFC設定まで。キーホルダー型ミニCD制作の全プロセスを解説。</div>
+                </div>
+            </a>
+            <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="w-card rv d1">
+                <div class="w-card-num">02</div>
+                <div class="w-card-img-wrap">
+                    <img src="https://assets.st-note.com/production/uploads/images/250502129/rectangle_large_type_2_8fcc10b28e2493bfcf822cb709531727.png" alt="Bookathon参加記録" class="w-card-img">
+                </div>
+                <div class="w-card-body">
+                    <div class="w-card-tag">Note / Blog</div>
+                    <div class="w-card-title">Bookathon参加記録</div>
+                    <div class="w-card-desc">3日間で本を書く、AIとの10時間。制作の裏側を記録。</div>
+                </div>
+            </a>
+        </div>
+        <div class="works-row2">
+            <a href="https://morune.store" target="_blank" rel="noopener" class="w-mini rv">
+                <div class="w-mini-icon">&#x1F4BF;</div>
+                <div class="w-card-tag">Shop</div>
+                <div class="w-card-title">MORUNE 公式ストア</div>
+                <div class="w-card-desc">ミニCDキーホルダー・グッズの販売</div>
+            </a>
+            <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="w-mini rv d1">
+                <div class="w-mini-icon">&#x1F3B6;</div>
+                <div class="w-card-tag">Music</div>
+                <div class="w-card-title">SoundCloud</div>
+                <div class="w-card-desc">AIで生成した楽曲を公開中</div>
+            </a>
+            <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="w-mini rv d2">
+                <div class="w-mini-icon">&#x1F4F8;</div>
+                <div class="w-card-tag">Gallery</div>
+                <div class="w-card-title">Instagram</div>
+                <div class="w-card-desc">制作過程やイベントの様子</div>
+            </a>
+        </div>
+    </section>
 
     <!-- profile -->
-    <section class="section sec-profile" id="profile">
-        <div class="reveal">
-            <div class="section-label">Profile</div>
-            <h2 class="section-heading">プロフィール</h2>
-            <p class="section-sub">活動の背景と、取り組んでいるテーマについて。</p>
-        </div>
-        <div class="profile-card reveal">
-            <img
-                src="https://assets.st-note.com/production/uploads/images/163938797/profile_839eb2b4d99903cd1ef6c59025964b16.jpg"
-                alt="EMKO"
-                class="profile-photo"
-            >
-            <div class="profile-body">
-                <h3>EMKO</h3>
-                <div class="role">Morune 主宰 / リサーチャー / デジタルハリウッド大学大学院</div>
-                <p>
+    <section id="profile">
+        <div class="profile-layout">
+            <div class="profile-img-side rv">
+                <img
+                    src="https://assets.st-note.com/production/uploads/images/163938797/profile_839eb2b4d99903cd1ef6c59025964b16.jpg"
+                    alt="EMKO"
+                    data-speed="0.2"
+                >
+            </div>
+            <div class="profile-text-side">
+                <div class="ed-label rv">02 &mdash; Profile</div>
+                <h2 class="profile-name rv d1">EMKO</h2>
+                <div class="profile-role rv d1">Morune 主宰 / リサーチャー / デジタルハリウッド大学大学院</div>
+                <p class="profile-bio rv d2">
                     クリエイティブAIラボ（CAIL）所属。マーケティング戦略やイベント設計を専門とし、AIと音楽を組み合わせたブランド Morune を主宰しています。
-                </p>
-                <p>
                     AIでつくった音楽をキーホルダー型ミニCDに収め、スマホをかざすと音楽が再生される仕組みを制作。音を「贈る・残す・触れる」新しい体験づくりに取り組んでいます。
                 </p>
-                <div class="tags">
+                <div class="profile-tags rv d3">
                     <span>Creative AI</span>
                     <span>Marketing Strategy</span>
                     <span>Event Design</span>
@@ -713,73 +593,79 @@
     </section>
 
     <!-- links -->
-    <div class="section-band band-links">
-        <section class="section sec-links" id="links">
-            <div class="reveal">
-                <div class="section-label">Links</div>
-                <h2 class="section-heading">リンク</h2>
-                <p class="section-sub">各プラットフォームで活動しています。</p>
-            </div>
-            <div class="links-flex reveal">
-                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="l-card">
-                    <div class="l-ico">&#x1F4F7;</div>
-                    <span class="l-name">Instagram</span>
-                    <span class="l-arrow">&rsaquo;</span>
-                </a>
-                <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="l-card">
-                    <div class="l-ico">&#x1F3B5;</div>
-                    <span class="l-name">SoundCloud</span>
-                    <span class="l-arrow">&rsaquo;</span>
-                </a>
-                <a href="https://morune.store" target="_blank" rel="noopener" class="l-card">
-                    <div class="l-ico">&#x1F3E0;</div>
-                    <span class="l-name">MORUNE Store</span>
-                    <span class="l-arrow">&rsaquo;</span>
-                </a>
-                <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="l-card">
-                    <div class="l-ico">&#x1F4DA;</div>
-                    <span class="l-name">技術書典</span>
-                    <span class="l-arrow">&rsaquo;</span>
-                </a>
-                <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="l-card">
-                    <div class="l-ico">&#x270D;&#xFE0F;</div>
-                    <span class="l-name">note</span>
-                    <span class="l-arrow">&rsaquo;</span>
-                </a>
-                <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="l-card">
-                    <div class="l-ico">&#x1F4AC;</div>
-                    <span class="l-name">EMKO.ai (X)</span>
-                    <span class="l-arrow">&rsaquo;</span>
-                </a>
-            </div>
-        </section>
-    </div>
-
-    <!-- CTA -->
-    <section class="cta" id="contact">
-        <div class="cta-inner reveal">
-            <div class="section-label">Contact</div>
-            <h2>お仕事のご相談・コラボレーション</h2>
-            <p>
-                イベント設計、AIを活用した音楽体験、ワークショップ企画など、<br>
-                お気軽にご連絡ください。
-            </p>
-            <div class="cta-options">
-                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="btn btn-cta-primary">Instagram DM で問い合わせ</a>
-                <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="btn btn-cta-ghost">X (Twitter) で連絡</a>
-            </div>
+    <section class="ed-section links-section" id="links">
+        <div class="rv">
+            <div class="ed-label">03 &mdash; Links</div>
+            <h2 class="ed-heading">各プラットフォーム</h2>
+        </div>
+        <div class="links-row rv">
+            <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="lk">
+                <div class="lk-left"><span class="lk-ico">&#x1F4F7;</span> Instagram</div>
+                <span class="lk-arrow">&rarr;</span>
+            </a>
+            <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="lk">
+                <div class="lk-left"><span class="lk-ico">&#x1F3B5;</span> SoundCloud</div>
+                <span class="lk-arrow">&rarr;</span>
+            </a>
+            <a href="https://morune.store" target="_blank" rel="noopener" class="lk">
+                <div class="lk-left"><span class="lk-ico">&#x1F3E0;</span> MORUNE Store</div>
+                <span class="lk-arrow">&rarr;</span>
+            </a>
+            <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="lk">
+                <div class="lk-left"><span class="lk-ico">&#x1F4DA;</span> 技術書典</div>
+                <span class="lk-arrow">&rarr;</span>
+            </a>
+            <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="lk">
+                <div class="lk-left"><span class="lk-ico">&#x270D;&#xFE0F;</span> note</div>
+                <span class="lk-arrow">&rarr;</span>
+            </a>
+            <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="lk">
+                <div class="lk-left"><span class="lk-ico">&#x1F4AC;</span> EMKO.ai (X)</div>
+                <span class="lk-arrow">&rarr;</span>
+            </a>
         </div>
     </section>
 
-    <footer>&copy; 2026 EMKO / Morune. All rights reserved.</footer>
+    <!-- CTA -->
+    <section class="cta-section" id="contact">
+        <div class="rv">
+            <div class="ed-label">04 &mdash; Contact</div>
+            <h2 class="ed-heading">お仕事の<em>ご相談</em></h2>
+            <p class="ed-sub">イベント設計、AIを活用した音楽体験、ワークショップ企画など、<br>お気軽にご連絡ください。</p>
+        </div>
+        <div class="cta-actions rv d1">
+            <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="cta-btn cta-primary">Instagram DM で問い合わせ</a>
+            <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="cta-btn cta-ghost">X (Twitter) で連絡</a>
+        </div>
+    </section>
+
+    <footer>
+        <span>&copy; 2026 EMKO / Morune</span>
+        <a href="#">Back to top &uarr;</a>
+    </footer>
 
     <script>
-        const io = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-        document.querySelectorAll('.nav-items a').forEach(a => {
-            a.addEventListener('click', () => document.querySelector('.nav-items').classList.remove('open'));
+        // reveal on scroll
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+        }, { threshold: 0.06, rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+        // simple parallax
+        const pEls = document.querySelectorAll('[data-speed]');
+        window.addEventListener('scroll', () => {
+            const sy = window.scrollY;
+            pEls.forEach(el => {
+                const speed = parseFloat(el.dataset.speed);
+                const rect = el.parentElement.getBoundingClientRect();
+                const offset = (rect.top + sy - window.innerHeight / 2) * speed;
+                el.style.transform = `translateY(${-offset * 0.15}px) scale(1.08)`;
+            });
+        }, { passive: true });
+
+        // mobile nav
+        document.querySelectorAll('.topbar-nav a').forEach(a => {
+            a.addEventListener('click', () => document.querySelector('.topbar-nav').classList.remove('open'));
         });
     </script>
 </body>
