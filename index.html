@@ -103,12 +103,16 @@
         .hero-right {
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0ebe3;
         }
 
         .hero-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 85%;
+            max-height: 80vh;
+            object-fit: contain;
         }
 
         .hero-caption {
@@ -201,7 +205,8 @@
         .w-card-img {
             width: 100%;
             aspect-ratio: 3 / 2;
-            object-fit: cover;
+            object-fit: contain;
+            background: #f5f0ea;
             transition: transform .8s cubic-bezier(.22,1,.36,1);
         }
 
@@ -282,6 +287,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center center;
         }
 
         .profile-text-side {
@@ -451,7 +457,7 @@
 
             .hero { grid-template-columns: 1fr; min-height: auto; }
             .hero-left { padding: 7rem 2rem 3rem; }
-            .hero-right { height: 60vh; }
+            .hero-right { height: auto; padding: 2rem; }
             .hero-scroll { left: 2rem; bottom: 2rem; }
 
             .ed-section { padding: 5rem 2rem; }
@@ -584,8 +590,8 @@
         <div class="profile-layout">
             <div class="profile-img-side rv">
                 <img
-                    src="https://assets.st-note.com/production/uploads/images/44460278/2bcc3cdf374a6b14b7eb695dc3900e63.jpg"
-                    alt="Morune"
+                    src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=80"
+                    alt="Music and creativity"
                     data-speed="0.2"
                 >
             </div>
