@@ -13,19 +13,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0e0e12;
-            --surface: rgba(255,255,255,0.04);
-            --surface-hover: rgba(255,255,255,0.08);
-            --border: rgba(255,255,255,0.07);
-            --text: #f0ede8;
-            --text-sub: rgba(255,255,255,0.45);
-            --accent: #c8a46e;
-            --accent-light: #e8d5b0;
-            --accent-glow: rgba(200,164,110,0.2);
-            --radius: 16px;
-            --radius-sm: 10px;
+            --bg: #ffffff;
+            --bg-sub: #fafafa;
+            --text: #1a1a2e;
+            --text-sub: #7a7a8e;
+            --border: rgba(0,0,0,0.06);
+            --shadow: 0 2px 16px rgba(0,0,0,0.06);
+            --shadow-hover: 0 8px 32px rgba(0,0,0,0.10);
+            --radius: 20px;
+            --radius-sm: 14px;
             --max-w: 960px;
             --transition: cubic-bezier(0.16, 1, 0.3, 1);
+
+            /* section colors */
+            --c-hero: #7c5cfc;
+            --c-hero-light: #ece7ff;
+            --c-works: #f97066;
+            --c-works-light: #fff1f0;
+            --c-profile: #10b981;
+            --c-profile-light: #ecfdf5;
+            --c-links: #3b82f6;
+            --c-links-light: #eff6ff;
+            --c-contact: #f59e0b;
+            --c-contact-light: #fffbeb;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -40,11 +50,6 @@
         }
 
         img { display: block; }
-
-        /* scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
 
         /* --- animations --- */
         .reveal {
@@ -67,9 +72,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(14,14,18,0.6);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
         }
 
@@ -94,19 +99,18 @@
 
         .nav-cta {
             padding: 0.45rem 1.2rem;
-            background: var(--accent);
-            color: #1a1a1a !important;
+            background: var(--c-hero);
+            color: #fff !important;
             font-weight: 700;
             font-size: 0.72rem !important;
             border-radius: 50px;
             letter-spacing: 0.04em;
             transition: opacity 0.2s;
         }
-        .nav-cta:hover { opacity: 0.85; color: #1a1a1a !important; }
+        .nav-cta:hover { opacity: 0.85; color: #fff !important; }
 
-        /* hamburger */
         .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-        .hamburger span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: 0.3s; }
+        .hamburger span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: 0.3s; border-radius: 2px; }
 
         /* --- hero --- */
         .hero {
@@ -119,39 +123,49 @@
             text-align: center;
             padding: 7rem 2rem 4rem;
             position: relative;
+            background: linear-gradient(160deg, var(--c-hero-light) 0%, #fff 40%, #fff 60%, var(--c-works-light) 100%);
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, var(--accent-glow), transparent 70%);
-            top: 15%; left: 50%;
-            transform: translateX(-50%);
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(124,92,252,0.08), transparent 70%);
+            top: 10%; right: 10%;
             pointer-events: none;
-            opacity: 0.7;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(249,112,102,0.06), transparent 70%);
+            bottom: 15%; left: 10%;
+            pointer-events: none;
         }
 
         .hero-inner { position: relative; max-width: 620px; }
 
         .hero .avatar {
-            width: 96px; height: 96px;
+            width: 100px; height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(200,164,110,0.25);
+            border: 3px solid #fff;
+            box-shadow: 0 4px 20px rgba(124,92,252,0.15);
             margin: 0 auto 1.8rem;
         }
 
         .hero h1 {
             font-weight: 900;
             font-size: clamp(1.8rem, 5.5vw, 3.2rem);
-            line-height: 1.25;
+            line-height: 1.3;
             margin-bottom: 1.2rem;
             letter-spacing: -0.02em;
+            color: var(--text);
         }
 
         .hero h1 .hl {
-            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            background: linear-gradient(135deg, var(--c-hero), #f97066, var(--c-contact));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -159,7 +173,7 @@
 
         .hero-desc {
             font-size: 0.92rem;
-            font-weight: 300;
+            font-weight: 400;
             color: var(--text-sub);
             line-height: 1.9;
             margin-bottom: 2.2rem;
@@ -185,17 +199,17 @@
         .btn:hover { transform: translateY(-2px); }
 
         .btn-primary {
-            background: var(--accent);
-            color: #1a1a1a;
+            background: var(--c-hero);
+            color: #fff;
         }
-        .btn-primary:hover { box-shadow: 0 8px 32px var(--accent-glow); }
+        .btn-primary:hover { box-shadow: 0 8px 24px rgba(124,92,252,0.3); }
 
         .btn-ghost {
-            background: transparent;
+            background: #fff;
             color: var(--text);
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1.5px solid var(--border);
         }
-        .btn-ghost:hover { border-color: rgba(255,255,255,0.3); }
+        .btn-ghost:hover { border-color: rgba(0,0,0,0.15); box-shadow: var(--shadow); }
 
         .scroll-hint {
             position: absolute;
@@ -208,19 +222,12 @@
             gap: 0.4rem;
             color: var(--text-sub);
         }
-
-        .scroll-hint span {
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
-        }
-
+        .scroll-hint span { font-size: 0.6rem; letter-spacing: 0.2em; }
         .scroll-line {
-            width: 1px;
-            height: 32px;
+            width: 1px; height: 28px;
             background: linear-gradient(to bottom, var(--text-sub), transparent);
             animation: scroll-anim 2s ease-in-out infinite;
         }
-
         @keyframes scroll-anim {
             0% { opacity: 1; transform: scaleY(1); }
             50% { opacity: 0.3; transform: scaleY(0.4); }
@@ -231,7 +238,7 @@
         .section {
             max-width: var(--max-w);
             margin: 0 auto;
-            padding: 6rem 2rem;
+            padding: 5rem 2rem;
         }
 
         .section-label {
@@ -239,15 +246,16 @@
             font-size: 0.68rem;
             letter-spacing: 0.25em;
             text-transform: uppercase;
-            color: var(--accent);
             margin-bottom: 0.5rem;
+            display: inline-block;
+            padding: 0.25rem 0.8rem;
+            border-radius: 50px;
         }
 
         .section-heading {
             font-size: clamp(1.3rem, 3vw, 1.8rem);
             font-weight: 900;
-            margin-bottom: 0.6rem;
-            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
         }
 
         .section-sub {
@@ -258,12 +266,17 @@
             max-width: 480px;
         }
 
-        .section-divider {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            border: none;
-            border-top: 1px solid var(--border);
+        /* color per section */
+        .sec-works .section-label { background: var(--c-works-light); color: var(--c-works); }
+        .sec-profile .section-label { background: var(--c-profile-light); color: var(--c-profile); }
+        .sec-links .section-label { background: var(--c-links-light); color: var(--c-links); }
+
+        .section-band {
+            padding: 5rem 0;
         }
+        .section-band.band-works { background: var(--c-works-light); }
+        .section-band.band-profile { background: var(--bg); }
+        .section-band.band-links { background: var(--c-links-light); }
 
         /* --- bento --- */
         .bento {
@@ -273,7 +286,7 @@
         }
 
         .b-card {
-            background: var(--surface);
+            background: #fff;
             border: 1px solid var(--border);
             border-radius: var(--radius);
             overflow: hidden;
@@ -281,13 +294,13 @@
             color: inherit;
             display: flex;
             flex-direction: column;
-            transition: transform 0.4s var(--transition), box-shadow 0.4s var(--transition), border-color 0.3s;
+            box-shadow: var(--shadow);
+            transition: transform 0.4s var(--transition), box-shadow 0.4s var(--transition);
         }
 
         .b-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-            border-color: rgba(255,255,255,0.12);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
         }
 
         .b-card.c1 { grid-column: span 7; }
@@ -296,10 +309,7 @@
         .b-card.c4 { grid-column: span 4; }
         .b-card.c5 { grid-column: span 4; }
 
-        .b-img-wrap {
-            position: relative;
-            overflow: hidden;
-        }
+        .b-img-wrap { position: relative; overflow: hidden; }
 
         .b-img {
             width: 100%;
@@ -307,9 +317,7 @@
             object-fit: cover;
             transition: transform 0.6s var(--transition);
         }
-
         .b-card:hover .b-img { transform: scale(1.03); }
-
         .b-card.c2 .b-img { height: 180px; }
         .b-card.c3 .b-img,
         .b-card.c4 .b-img,
@@ -325,8 +333,8 @@
         .b-tag {
             font-size: 0.62rem;
             font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 0.12em;
+            color: var(--c-works);
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             margin-bottom: 0.4rem;
         }
@@ -354,10 +362,15 @@
             padding: 1.5rem 1.3rem;
         }
 
-        .b-icon-card .b-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
-        }
+        .b-icon-card .b-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+
+        /* icon card color accents */
+        .b-card.c3 { background: #fff7ed; border-color: rgba(249,115,22,0.1); }
+        .b-card.c3 .b-tag { color: #ea580c; }
+        .b-card.c4 { background: #fdf2f8; border-color: rgba(236,72,153,0.1); }
+        .b-card.c4 .b-tag { color: #db2777; }
+        .b-card.c5 { background: #f0f9ff; border-color: rgba(59,130,246,0.1); }
+        .b-card.c5 .b-tag { color: #2563eb; }
 
         /* --- profile --- */
         .profile-card {
@@ -365,10 +378,11 @@
             grid-template-columns: 220px 1fr;
             gap: 3rem;
             align-items: start;
-            background: var(--surface);
+            background: #fff;
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 2.5rem;
+            box-shadow: var(--shadow);
         }
 
         .profile-photo {
@@ -386,7 +400,7 @@
 
         .profile-body .role {
             font-size: 0.78rem;
-            color: var(--accent);
+            color: var(--c-profile);
             margin-bottom: 1.2rem;
             letter-spacing: 0.03em;
         }
@@ -395,30 +409,31 @@
             font-size: 0.84rem;
             line-height: 2;
             color: var(--text-sub);
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
         }
 
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.45rem;
-        }
+        .tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
 
         .tags span {
-            padding: 0.32rem 0.85rem;
-            background: rgba(200,164,110,0.08);
-            border: 1px solid rgba(200,164,110,0.15);
+            padding: 0.35rem 0.9rem;
             border-radius: 50px;
             font-size: 0.7rem;
-            color: var(--accent-light);
+            font-weight: 700;
             letter-spacing: 0.02em;
         }
+
+        .tags span:nth-child(6n+1) { background: var(--c-hero-light); color: var(--c-hero); }
+        .tags span:nth-child(6n+2) { background: var(--c-works-light); color: var(--c-works); }
+        .tags span:nth-child(6n+3) { background: var(--c-profile-light); color: var(--c-profile); }
+        .tags span:nth-child(6n+4) { background: var(--c-contact-light); color: #d97706; }
+        .tags span:nth-child(6n+5) { background: var(--c-links-light); color: var(--c-links); }
+        .tags span:nth-child(6n+6) { background: #fdf2f8; color: #db2777; }
 
         /* --- links --- */
         .links-flex {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
+            gap: 0.8rem;
         }
 
         .l-card {
@@ -426,25 +441,25 @@
             align-items: center;
             gap: 0.75rem;
             padding: 0.95rem 1.1rem;
-            background: var(--surface);
+            background: #fff;
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             text-decoration: none;
             color: var(--text);
             font-size: 0.82rem;
             font-weight: 400;
-            transition: background 0.2s, transform 0.25s var(--transition);
+            box-shadow: var(--shadow);
+            transition: transform 0.25s var(--transition), box-shadow 0.25s;
         }
 
         .l-card:hover {
-            background: var(--surface-hover);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
         }
 
         .l-card .l-ico {
-            width: 36px; height: 36px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.06);
+            width: 38px; height: 38px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -452,38 +467,35 @@
             flex-shrink: 0;
         }
 
+        /* each link card icon has its own color */
+        .l-card:nth-child(1) .l-ico { background: #fdf2f8; }
+        .l-card:nth-child(2) .l-ico { background: #fff7ed; }
+        .l-card:nth-child(3) .l-ico { background: var(--c-hero-light); }
+        .l-card:nth-child(4) .l-ico { background: var(--c-profile-light); }
+        .l-card:nth-child(5) .l-ico { background: var(--c-contact-light); }
+        .l-card:nth-child(6) .l-ico { background: var(--c-links-light); }
+
         .l-card .l-name { flex: 1; }
-
-        .l-card .l-arrow {
-            color: var(--text-sub);
-            font-size: 1rem;
-            transition: transform 0.2s;
-        }
-
-        .l-card:hover .l-arrow { transform: translateX(3px); }
+        .l-card .l-arrow { color: #ccc; font-size: 1rem; transition: transform 0.2s; }
+        .l-card:hover .l-arrow { transform: translateX(3px); color: var(--text-sub); }
 
         /* --- CTA --- */
         .cta {
             text-align: center;
-            padding: 6rem 2rem;
+            padding: 5rem 2rem;
+            background: linear-gradient(160deg, var(--c-contact-light) 0%, #fff 50%, var(--c-hero-light) 100%);
             position: relative;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            width: 700px; height: 350px;
-            background: radial-gradient(ellipse, var(--accent-glow), transparent 70%);
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            opacity: 0.6;
         }
 
         .cta-inner {
             position: relative;
             max-width: 520px;
             margin: 0 auto;
+        }
+
+        .cta .section-label {
+            background: var(--c-contact-light);
+            color: #d97706;
         }
 
         .cta h2 {
@@ -499,33 +511,41 @@
             margin-bottom: 2rem;
         }
 
-        .cta-options {
-            display: flex;
-            gap: 0.8rem;
-            justify-content: center;
-            flex-wrap: wrap;
+        .cta-options { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn-cta-primary {
+            background: linear-gradient(135deg, var(--c-hero), #f97066);
+            color: #fff;
         }
+        .btn-cta-primary:hover { box-shadow: 0 8px 24px rgba(124,92,252,0.25); }
+
+        .btn-cta-ghost {
+            background: #fff;
+            color: var(--text);
+            border: 1.5px solid var(--border);
+        }
+        .btn-cta-ghost:hover { box-shadow: var(--shadow); }
 
         /* --- footer --- */
         footer {
             text-align: center;
             padding: 2.5rem 2rem;
             font-size: 0.68rem;
-            color: rgba(255,255,255,0.2);
+            color: #bbb;
             border-top: 1px solid var(--border);
+            background: var(--bg);
         }
 
         /* --- responsive --- */
         @media (max-width: 768px) {
             nav { padding: 0 1.2rem; }
-            .nav-items-inner { gap: 1.2rem; }
             .hamburger { display: block; }
             .nav-items {
                 display: none;
                 position: absolute;
                 top: 56px; left: 0; right: 0;
-                background: rgba(14,14,18,0.95);
-                backdrop-filter: blur(24px);
+                background: rgba(255,255,255,0.97);
+                backdrop-filter: blur(20px);
                 flex-direction: column;
                 padding: 1.5rem 2rem;
                 gap: 1.2rem;
@@ -543,27 +563,19 @@
                 text-align: center;
                 padding: 2rem 1.5rem;
             }
-            .profile-photo {
-                max-width: 200px;
-                margin: 0 auto;
-                aspect-ratio: 1;
-            }
+            .profile-photo { max-width: 200px; margin: 0 auto; aspect-ratio: 1; }
             .tags { justify-content: center; }
-
             .links-flex { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 480px) {
             .hero { padding: 6rem 1.2rem 3rem; }
-            .section { padding: 4rem 1.2rem; }
-
+            .section { padding: 3.5rem 1.2rem; }
             .bento { grid-template-columns: 1fr; gap: 0.8rem; }
             .b-card.c1, .b-card.c2,
             .b-card.c3, .b-card.c4, .b-card.c5 { grid-column: span 1; }
             .b-card .b-img { height: 180px; }
-
             .links-flex { grid-template-columns: 1fr; }
-
             .hero-actions { flex-direction: column; align-items: center; }
             .btn { width: 100%; justify-content: center; }
         }
@@ -609,67 +621,65 @@
         </div>
     </section>
 
-    <hr class="section-divider">
-
     <!-- works -->
-    <section class="section" id="works">
-        <div class="reveal">
-            <div class="section-label">Works</div>
-            <h2 class="section-heading">つくったもの</h2>
-            <p class="section-sub">キーホルダー型ミニCD、書籍、音楽など、これまでの活動。</p>
-        </div>
-        <div class="bento">
-            <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="b-card c1 reveal">
-                <div class="b-img-wrap">
-                    <img src="https://techbookfest.org/api/product/ogp/image/6T2GqQjWR3yTbEMGCv24tX" alt="SUNO AIでつくる音のかたち" class="b-img">
-                </div>
-                <div class="b-body">
-                    <div class="b-tag">Book / 技術書典</div>
-                    <div class="b-title">SUNO AIでつくる"音のかたち" ― AIミニCD制作入門</div>
-                    <div class="b-desc">AIでの楽曲づくりからジャケットデザイン、NFC設定まで。キーホルダー型ミニCD制作の全プロセスを解説。</div>
-                </div>
-            </a>
-            <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="b-card c2 reveal d1">
-                <div class="b-img-wrap">
-                    <img src="https://assets.st-note.com/production/uploads/images/250502129/rectangle_large_type_2_8fcc10b28e2493bfcf822cb709531727.png" alt="Bookathon参加記録" class="b-img">
-                </div>
-                <div class="b-body">
-                    <div class="b-tag">Note / Blog</div>
-                    <div class="b-title">Bookathon参加記録</div>
-                    <div class="b-desc">3日間で本を書く、AIとの10時間。制作の裏側を記録。</div>
-                </div>
-            </a>
-            <a href="https://morune.store" target="_blank" rel="noopener" class="b-card c3 reveal">
-                <div class="b-icon-card">
-                    <div class="b-icon">&#x1F4BF;</div>
-                    <div class="b-tag">Shop</div>
-                    <div class="b-title">MORUNE 公式ストア</div>
-                    <div class="b-desc">ミニCDキーホルダー・グッズの販売</div>
-                </div>
-            </a>
-            <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="b-card c4 reveal d1">
-                <div class="b-icon-card">
-                    <div class="b-icon">&#x1F3B6;</div>
-                    <div class="b-tag">Music</div>
-                    <div class="b-title">SoundCloud</div>
-                    <div class="b-desc">AIで生成した楽曲を公開中</div>
-                </div>
-            </a>
-            <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="b-card c5 reveal d2">
-                <div class="b-icon-card">
-                    <div class="b-icon">&#x1F4F8;</div>
-                    <div class="b-tag">Gallery</div>
-                    <div class="b-title">Instagram</div>
-                    <div class="b-desc">制作過程やイベントの様子</div>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <hr class="section-divider">
+    <div class="section-band band-works">
+        <section class="section sec-works" id="works">
+            <div class="reveal">
+                <div class="section-label">Works</div>
+                <h2 class="section-heading">つくったもの</h2>
+                <p class="section-sub">キーホルダー型ミニCD、書籍、音楽など、これまでの活動。</p>
+            </div>
+            <div class="bento">
+                <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="b-card c1 reveal">
+                    <div class="b-img-wrap">
+                        <img src="https://techbookfest.org/api/product/ogp/image/6T2GqQjWR3yTbEMGCv24tX" alt="SUNO AIでつくる音のかたち" class="b-img">
+                    </div>
+                    <div class="b-body">
+                        <div class="b-tag">Book / 技術書典</div>
+                        <div class="b-title">SUNO AIでつくる"音のかたち" ― AIミニCD制作入門</div>
+                        <div class="b-desc">AIでの楽曲づくりからジャケットデザイン、NFC設定まで。キーホルダー型ミニCD制作の全プロセスを解説。</div>
+                    </div>
+                </a>
+                <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="b-card c2 reveal d1">
+                    <div class="b-img-wrap">
+                        <img src="https://assets.st-note.com/production/uploads/images/250502129/rectangle_large_type_2_8fcc10b28e2493bfcf822cb709531727.png" alt="Bookathon参加記録" class="b-img">
+                    </div>
+                    <div class="b-body">
+                        <div class="b-tag">Note / Blog</div>
+                        <div class="b-title">Bookathon参加記録</div>
+                        <div class="b-desc">3日間で本を書く、AIとの10時間。制作の裏側を記録。</div>
+                    </div>
+                </a>
+                <a href="https://morune.store" target="_blank" rel="noopener" class="b-card c3 reveal">
+                    <div class="b-icon-card">
+                        <div class="b-icon">&#x1F4BF;</div>
+                        <div class="b-tag">Shop</div>
+                        <div class="b-title">MORUNE 公式ストア</div>
+                        <div class="b-desc">ミニCDキーホルダー・グッズの販売</div>
+                    </div>
+                </a>
+                <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="b-card c4 reveal d1">
+                    <div class="b-icon-card">
+                        <div class="b-icon">&#x1F3B6;</div>
+                        <div class="b-tag">Music</div>
+                        <div class="b-title">SoundCloud</div>
+                        <div class="b-desc">AIで生成した楽曲を公開中</div>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="b-card c5 reveal d2">
+                    <div class="b-icon-card">
+                        <div class="b-icon">&#x1F4F8;</div>
+                        <div class="b-tag">Gallery</div>
+                        <div class="b-title">Instagram</div>
+                        <div class="b-desc">制作過程やイベントの様子</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
 
     <!-- profile -->
-    <section class="section" id="profile">
+    <section class="section sec-profile" id="profile">
         <div class="reveal">
             <div class="section-label">Profile</div>
             <h2 class="section-heading">プロフィール</h2>
@@ -702,50 +712,48 @@
         </div>
     </section>
 
-    <hr class="section-divider">
-
     <!-- links -->
-    <section class="section" id="links">
-        <div class="reveal">
-            <div class="section-label">Links</div>
-            <h2 class="section-heading">リンク</h2>
-            <p class="section-sub">各プラットフォームで活動しています。</p>
-        </div>
-        <div class="links-flex reveal">
-            <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="l-card">
-                <div class="l-ico">&#x1F4F7;</div>
-                <span class="l-name">Instagram</span>
-                <span class="l-arrow">&rsaquo;</span>
-            </a>
-            <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="l-card">
-                <div class="l-ico">&#x1F3B5;</div>
-                <span class="l-name">SoundCloud</span>
-                <span class="l-arrow">&rsaquo;</span>
-            </a>
-            <a href="https://morune.store" target="_blank" rel="noopener" class="l-card">
-                <div class="l-ico">&#x1F3E0;</div>
-                <span class="l-name">MORUNE Store</span>
-                <span class="l-arrow">&rsaquo;</span>
-            </a>
-            <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="l-card">
-                <div class="l-ico">&#x1F4DA;</div>
-                <span class="l-name">技術書典</span>
-                <span class="l-arrow">&rsaquo;</span>
-            </a>
-            <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="l-card">
-                <div class="l-ico">&#x270D;&#xFE0F;</div>
-                <span class="l-name">note</span>
-                <span class="l-arrow">&rsaquo;</span>
-            </a>
-            <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="l-card">
-                <div class="l-ico">&#x1F4AC;</div>
-                <span class="l-name">EMKO.ai (X)</span>
-                <span class="l-arrow">&rsaquo;</span>
-            </a>
-        </div>
-    </section>
-
-    <hr class="section-divider">
+    <div class="section-band band-links">
+        <section class="section sec-links" id="links">
+            <div class="reveal">
+                <div class="section-label">Links</div>
+                <h2 class="section-heading">リンク</h2>
+                <p class="section-sub">各プラットフォームで活動しています。</p>
+            </div>
+            <div class="links-flex reveal">
+                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="l-card">
+                    <div class="l-ico">&#x1F4F7;</div>
+                    <span class="l-name">Instagram</span>
+                    <span class="l-arrow">&rsaquo;</span>
+                </a>
+                <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="l-card">
+                    <div class="l-ico">&#x1F3B5;</div>
+                    <span class="l-name">SoundCloud</span>
+                    <span class="l-arrow">&rsaquo;</span>
+                </a>
+                <a href="https://morune.store" target="_blank" rel="noopener" class="l-card">
+                    <div class="l-ico">&#x1F3E0;</div>
+                    <span class="l-name">MORUNE Store</span>
+                    <span class="l-arrow">&rsaquo;</span>
+                </a>
+                <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="l-card">
+                    <div class="l-ico">&#x1F4DA;</div>
+                    <span class="l-name">技術書典</span>
+                    <span class="l-arrow">&rsaquo;</span>
+                </a>
+                <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="l-card">
+                    <div class="l-ico">&#x270D;&#xFE0F;</div>
+                    <span class="l-name">note</span>
+                    <span class="l-arrow">&rsaquo;</span>
+                </a>
+                <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="l-card">
+                    <div class="l-ico">&#x1F4AC;</div>
+                    <span class="l-name">EMKO.ai (X)</span>
+                    <span class="l-arrow">&rsaquo;</span>
+                </a>
+            </div>
+        </section>
+    </div>
 
     <!-- CTA -->
     <section class="cta" id="contact">
@@ -757,8 +765,8 @@
                 お気軽にご連絡ください。
             </p>
             <div class="cta-options">
-                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="btn btn-primary">Instagram DM で問い合わせ</a>
-                <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="btn btn-ghost">X (Twitter) で連絡</a>
+                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="btn btn-cta-primary">Instagram DM で問い合わせ</a>
+                <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="btn btn-cta-ghost">X (Twitter) で連絡</a>
             </div>
         </div>
     </section>
@@ -770,8 +778,6 @@
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
         }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-        // close mobile menu on link click
         document.querySelectorAll('.nav-items a').forEach(a => {
             a.addEventListener('click', () => document.querySelector('.nav-items').classList.remove('open'));
         });
