@@ -3,310 +3,560 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Morune - AIと音で手のひらの音楽体験をデザイン</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <title>EMKO / Morune - AIと音で手のひらの音楽体験をデザイン</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #0e0e12;
+            --surface: rgba(255,255,255,0.05);
+            --surface-hover: rgba(255,255,255,0.09);
+            --border: rgba(255,255,255,0.08);
+            --text: #eee;
+            --text-sub: rgba(255,255,255,0.5);
+            --accent: #c8a46e;
+            --accent-glow: rgba(200,164,110,0.25);
+            --radius: 16px;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background: #f6f4f0;
-            color: #2c2c2c;
+            background: var(--bg);
+            color: var(--text);
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* --- header --- */
+        /* --- scrollbar --- */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+
+        /* --- fade in on scroll --- */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- nav --- */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(14,14,18,0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .logo {
+            font-family: 'Kosugi Maru', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        nav .nav-links { display: flex; gap: 1.5rem; }
+
+        nav .nav-links a {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+
+        nav .nav-links a:hover { color: var(--accent); }
+
+        /* --- hero --- */
         .hero {
-            position: relative;
-            background: #2c2c2c;
-            color: #fff;
-            padding: 4rem 1.5rem 3rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            overflow: hidden;
+            padding: 6rem 2rem 4rem;
+            position: relative;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 20% 50%, rgba(180,140,100,0.15), transparent 60%),
-                radial-gradient(ellipse at 80% 30%, rgba(100,130,180,0.1), transparent 50%);
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+            top: 20%; left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
         }
 
-        .hero-inner {
-            position: relative;
-            max-width: 560px;
-            margin: 0 auto;
-        }
+        .hero-content { position: relative; max-width: 640px; }
 
-        .avatar {
-            width: 100px;
-            height: 100px;
+        .hero .avatar {
+            width: 110px; height: 110px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid rgba(255,255,255,0.2);
+            border: 2px solid rgba(200,164,110,0.3);
+            margin-bottom: 1.5rem;
         }
 
         .hero h1 {
-            font-family: 'Kosugi Maru', sans-serif;
-            font-size: 1.5rem;
-            margin: 1rem 0 0.4rem;
-            letter-spacing: 0.08em;
+            font-weight: 900;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
         }
 
-        .hero .tagline {
-            font-size: 0.82rem;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.65);
-            max-width: 360px;
-            margin: 0 auto;
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--accent), #e8d5b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* --- section common --- */
-        .section {
-            max-width: 560px;
-            margin: 0 auto;
-            padding: 2.5rem 1.5rem;
+        .hero .sub {
+            font-size: 1rem;
+            color: var(--text-sub);
+            line-height: 1.8;
+            margin-bottom: 2rem;
         }
 
-        .section-title {
-            font-family: 'Kosugi Maru', sans-serif;
-            font-size: 0.75rem;
+        .cta-btn {
+            display: inline-block;
+            padding: 0.9rem 2.5rem;
+            background: var(--accent);
+            color: #1a1a1a;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: var(--text-sub);
             letter-spacing: 0.15em;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* --- section --- */
+        .section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-label {
+            font-family: 'Kosugi Maru', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: #999;
-            margin-bottom: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 0.6rem;
         }
 
-        /* --- about --- */
-        .about p {
-            font-size: 0.88rem;
-            line-height: 1.9;
-            color: #555;
+        .section-heading {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            letter-spacing: -0.01em;
         }
 
-        /* --- works --- */
-        .works-grid {
+        /* --- bento grid --- */
+        .bento {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(180px, auto);
             gap: 1rem;
         }
 
-        .work-card {
-            background: #fff;
-            border-radius: 8px;
+        .bento-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             overflow: hidden;
             text-decoration: none;
             color: inherit;
-            transition: box-shadow 0.25s;
+            transition: background 0.3s, transform 0.3s;
+            display: flex;
+            flex-direction: column;
         }
 
-        .work-card:hover {
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        .bento-card:hover {
+            background: var(--surface-hover);
+            transform: translateY(-4px);
         }
 
-        .work-card.featured {
-            grid-column: 1 / -1;
-        }
+        .bento-card.span-2 { grid-column: span 2; }
+        .bento-card.span-row { grid-row: span 2; }
 
-        .work-thumb {
+        .bento-thumb {
             width: 100%;
-            aspect-ratio: 16 / 10;
+            flex: 1;
             object-fit: cover;
             display: block;
+            min-height: 140px;
         }
 
-        .work-card.featured .work-thumb {
-            aspect-ratio: 2 / 1;
+        .bento-body {
+            padding: 1rem 1.2rem;
         }
 
-        .work-info {
-            padding: 0.8rem 1rem;
+        .bento-body .tag {
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
         }
 
-        .work-info .label {
-            font-size: 0.7rem;
-            color: #aaa;
-            margin-bottom: 0.2rem;
-        }
-
-        .work-info .title {
-            font-size: 0.85rem;
+        .bento-body .name {
+            font-size: 0.9rem;
             font-weight: 700;
             line-height: 1.5;
         }
 
-        /* --- links --- */
-        .link-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
+        .bento-body .desc {
+            font-size: 0.78rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-top: 0.3rem;
         }
 
-        .link-item {
+        /* --- profile --- */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .profile-img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .profile-text h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .profile-text .role {
+            font-size: 0.78rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .profile-text p {
+            font-size: 0.85rem;
+            line-height: 1.9;
+            color: var(--text-sub);
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .profile-tags span {
+            padding: 0.3rem 0.8rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.72rem;
+            color: var(--text-sub);
+        }
+
+        /* --- links grid --- */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+        }
+
+        .link-card {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 0.85rem 1rem;
-            background: #fff;
-            border-radius: 8px;
+            gap: 0.8rem;
+            padding: 1rem 1.2rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             text-decoration: none;
-            color: #2c2c2c;
-            font-size: 0.88rem;
-            transition: background 0.2s;
-        }
-
-        .link-item:hover {
-            background: #ede9e4;
-        }
-
-        .link-item .ico {
-            width: 2rem;
-            text-align: center;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        .link-item .lbl {
-            flex: 1;
-        }
-
-        .link-item .go {
-            color: #bbb;
+            color: var(--text);
             font-size: 0.85rem;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .link-card:hover {
+            background: var(--surface-hover);
+            transform: translateY(-2px);
+        }
+
+        .link-card .ico { font-size: 1.2rem; }
+        .link-card .arrow { margin-left: auto; color: var(--text-sub); font-size: 0.8rem; }
+
+        /* --- CTA section --- */
+        .cta-section {
+            text-align: center;
+            padding: 5rem 2rem;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 300px;
+            background: radial-gradient(ellipse, var(--accent-glow), transparent 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .cta-section .inner {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 900;
+            margin-bottom: 0.8rem;
+        }
+
+        .cta-section p {
+            font-size: 0.88rem;
+            color: var(--text-sub);
+            margin-bottom: 2rem;
+            line-height: 1.7;
         }
 
         /* --- footer --- */
         footer {
             text-align: center;
-            padding: 2rem 1rem;
+            padding: 2rem;
             font-size: 0.7rem;
-            color: #bbb;
+            color: rgba(255,255,255,0.25);
+            border-top: 1px solid var(--border);
         }
 
-        /* --- divider --- */
-        .divider {
-            max-width: 560px;
-            margin: 0 auto;
-            border: none;
-            border-top: 1px solid #e8e4df;
+        /* --- responsive --- */
+        @media (max-width: 768px) {
+            .bento { grid-template-columns: 1fr 1fr; }
+            .bento-card.span-2 { grid-column: span 2; }
+            .profile-grid { grid-template-columns: 1fr; text-align: center; }
+            .profile-img { max-width: 180px; margin: 0 auto; }
+            .profile-tags { justify-content: center; }
+            .links-grid { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 480px) {
-            .works-grid { grid-template-columns: 1fr; }
-            .hero { padding: 3rem 1.2rem 2.5rem; }
-            .section { padding: 2rem 1.2rem; }
+            nav { padding: 0.8rem 1.2rem; }
+            nav .nav-links { gap: 1rem; }
+            .bento { grid-template-columns: 1fr; }
+            .bento-card.span-2 { grid-column: span 1; }
+            .links-grid { grid-template-columns: 1fr; }
+            .section { padding: 3.5rem 1.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- header -->
-    <header class="hero">
-        <div class="hero-inner">
+    <!-- nav -->
+    <nav>
+        <div class="logo">EMKO / Morune</div>
+        <div class="nav-links">
+            <a href="#works">Works</a>
+            <a href="#profile">Profile</a>
+            <a href="#links">Links</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- hero -->
+    <section class="hero">
+        <div class="hero-content fade-up">
             <img
-                src="https://prd.storage.lit.link/images/creators/310f3631-4b96-45c3-ac58-8681d9a7ce4f/icons/3e14224d-52fd-405e-8bc6-0e550ecd5151.png"
-                alt="Morune"
+                src="https://assets.st-note.com/production/uploads/images/163938797/profile_839eb2b4d99903cd1ef6c59025964b16.jpg"
+                alt="EMKO"
                 class="avatar"
             >
-            <h1>Morune</h1>
-            <p class="tagline">AIと音で"手のひらの音楽体験"をデザインするブランド</p>
+            <h1>AIと音で<br><span class="highlight">手のひらの音楽体験</span>を<br>デザインする</h1>
+            <p class="sub">
+                Sunoと画像生成AIでつくる音のかたち。<br>
+                ミニCD「メロキー」を通して、音を"贈る・残す・触れる"新しい体験を届けます。
+            </p>
+            <a href="#contact" class="cta-btn">お問い合わせ</a>
         </div>
-    </header>
-
-    <!-- about -->
-    <section class="section about">
-        <div class="section-title">About</div>
-        <p>
-            Sunoと画像生成AIでつくる音のかたち。<br>
-            ミニCD「メロキー」を通して、<br>
-            音を"贈る・残す・触れる"新しい体験を届けます。
-        </p>
+        <div class="scroll-hint">SCROLL</div>
     </section>
 
-    <hr class="divider">
-
     <!-- works -->
-    <section class="section">
-        <div class="section-title">Works</div>
-        <div class="works-grid">
-            <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="work-card featured">
+    <section class="section" id="works">
+        <div class="fade-up">
+            <div class="section-label">Works</div>
+            <h2 class="section-heading">つくったもの</h2>
+        </div>
+        <div class="bento fade-up">
+            <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="bento-card span-2">
                 <img
                     src="https://techbookfest.org/api/product/ogp/image/6T2GqQjWR3yTbEMGCv24tX"
                     alt="SUNO AIでつくる音のかたち"
-                    class="work-thumb"
+                    class="bento-thumb"
                 >
-                <div class="work-info">
-                    <div class="label">Book / 技術書典</div>
-                    <div class="title">SUNO AIでつくる"音のかたち" ― AI ミニCD制作入門</div>
+                <div class="bento-body">
+                    <div class="tag">Book / 技術書典</div>
+                    <div class="name">SUNO AIでつくる"音のかたち" ― AI ミニCD制作入門</div>
+                    <div class="desc">楽曲生成からジャケットデザイン、NFC設定まで。音を"贈る"体験の全プロセスを解説。</div>
                 </div>
             </a>
-            <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="work-card">
+            <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="bento-card span-row">
                 <img
                     src="https://assets.st-note.com/production/uploads/images/250502129/rectangle_large_type_2_8fcc10b28e2493bfcf822cb709531727.png"
                     alt="Bookathon参加記録"
-                    class="work-thumb"
+                    class="bento-thumb"
                 >
-                <div class="work-info">
-                    <div class="label">Note / Blog</div>
-                    <div class="title">Bookathon参加記録 ― 3日間で本を書く、AIとの10時間</div>
+                <div class="bento-body">
+                    <div class="tag">Note / Blog</div>
+                    <div class="name">Bookathon参加記録</div>
+                    <div class="desc">3日間で本を書く、AIとの10時間。</div>
                 </div>
             </a>
-            <a href="https://morune.store" target="_blank" rel="noopener" class="work-card">
-                <img
-                    src="https://assets.st-note.com/production/uploads/images/44460278/2bcc3cdf374a6b14b7eb695dc3900e63.jpg"
-                    alt="MORUNE Store"
-                    class="work-thumb"
-                >
-                <div class="work-info">
-                    <div class="label">Shop</div>
-                    <div class="title">MORUNE 公式ストア</div>
+            <a href="https://morune.store" target="_blank" rel="noopener" class="bento-card">
+                <div class="bento-body" style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+                    <div class="tag">Shop</div>
+                    <div class="name">MORUNE<br>公式ストア</div>
+                    <div class="desc">ミニCD・グッズの販売</div>
+                </div>
+            </a>
+            <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="bento-card">
+                <div class="bento-body" style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+                    <div class="tag">Music</div>
+                    <div class="name">SoundCloud</div>
+                    <div class="desc">AIで生成した楽曲を公開中</div>
                 </div>
             </a>
         </div>
     </section>
 
-    <hr class="divider">
+    <!-- profile -->
+    <section class="section" id="profile">
+        <div class="fade-up">
+            <div class="section-label">Profile</div>
+            <h2 class="section-heading">プロフィール</h2>
+        </div>
+        <div class="profile-grid fade-up">
+            <img
+                src="https://assets.st-note.com/production/uploads/images/163938797/profile_839eb2b4d99903cd1ef6c59025964b16.jpg"
+                alt="EMKO"
+                class="profile-img"
+            >
+            <div class="profile-text">
+                <h3>EMKO</h3>
+                <div class="role">Morune 主宰 / リサーチャー</div>
+                <p>
+                    デジタルハリウッド大学大学院生。クリエイティブAIラボ所属。
+                    マーケティング戦略・イベント設計デザインを専門とし、
+                    AIと音楽を組み合わせた「手のひらの音楽体験」を
+                    社会実装するプロジェクト Morune を主宰。
+                    ミニCD「メロキー」を通して、音を贈る・残す・触れる
+                    新しいナラティブ体験の創出に取り組んでいます。
+                </p>
+                <div class="profile-tags">
+                    <span>Creative AI</span>
+                    <span>Marketing</span>
+                    <span>Event Design</span>
+                    <span>Social Implementation</span>
+                    <span>Narrative</span>
+                    <span>DHGS</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- links -->
-    <section class="section">
-        <div class="section-title">Links</div>
-        <div class="link-list">
-            <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="link-item">
-                <span class="ico">&#x1F4F7;</span>
-                <span class="lbl">Instagram</span>
-                <span class="go">&rsaquo;</span>
+    <section class="section" id="links">
+        <div class="fade-up">
+            <div class="section-label">Links</div>
+            <h2 class="section-heading">リンク</h2>
+        </div>
+        <div class="links-grid fade-up">
+            <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="link-card">
+                <span class="ico">&#x1F4F7;</span> Instagram <span class="arrow">&rsaquo;</span>
             </a>
-            <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="link-item">
-                <span class="ico">&#x1F3B5;</span>
-                <span class="lbl">SoundCloud</span>
-                <span class="go">&rsaquo;</span>
+            <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="link-card">
+                <span class="ico">&#x1F3B5;</span> SoundCloud <span class="arrow">&rsaquo;</span>
             </a>
-            <a href="https://morune.store" target="_blank" rel="noopener" class="link-item">
-                <span class="ico">&#x1F3E0;</span>
-                <span class="lbl">MORUNE 公式サイト</span>
-                <span class="go">&rsaquo;</span>
+            <a href="https://morune.store" target="_blank" rel="noopener" class="link-card">
+                <span class="ico">&#x1F3E0;</span> MORUNE Store <span class="arrow">&rsaquo;</span>
             </a>
-            <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="link-item">
-                <span class="ico">&#x1F4DA;</span>
-                <span class="lbl">技術書典 / 書籍情報</span>
-                <span class="go">&rsaquo;</span>
+            <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="link-card">
+                <span class="ico">&#x1F4DA;</span> 技術書典 <span class="arrow">&rsaquo;</span>
             </a>
-            <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="link-item">
-                <span class="ico">&#x270D;</span>
-                <span class="lbl">note</span>
-                <span class="go">&rsaquo;</span>
+            <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="link-card">
+                <span class="ico">&#x270D;&#xFE0F;</span> note <span class="arrow">&rsaquo;</span>
             </a>
-            <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="link-item">
-                <span class="ico">&#x1F4AC;</span>
-                <span class="lbl">EMKO.ai</span>
-                <span class="go">&rsaquo;</span>
+            <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="link-card">
+                <span class="ico">&#x1F4AC;</span> EMKO.ai <span class="arrow">&rsaquo;</span>
             </a>
         </div>
     </section>
 
-    <footer>&copy; 2026 Morune</footer>
+    <!-- CTA -->
+    <section class="cta-section" id="contact">
+        <div class="inner fade-up">
+            <div class="section-label">Contact</div>
+            <h2>お仕事のご相談・コラボレーション</h2>
+            <p>イベント設計、AIを活用した音楽体験、ワークショップなど、<br>お気軽にご連絡ください。</p>
+            <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="cta-btn">お問い合わせ</a>
+        </div>
+    </section>
 
+    <footer>&copy; 2026 EMKO / Morune</footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
