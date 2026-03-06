@@ -3,24 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>maisan-447</title>
+    <title>Morune - AIと音で"手のひらの音楽体験"をデザイン</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            line-height: 1.6;
-            color: #333;
+            font-family: 'Kosugi Maru', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #1a1a2e;
+            color: #fff;
         }
-        h1 { border-bottom: 2px solid #eee; padding-bottom: 0.3rem; }
-        h2 { border-bottom: 1px solid #eee; padding-bottom: 0.3rem; }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .profile-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 1.2rem;
+        }
+
+        .name {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .bio {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .link-button {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.9rem 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .link-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .link-icon {
+            font-size: 1.3rem;
+            width: 2rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .link-label {
+            flex: 1;
+            text-align: left;
+        }
+
+        .arrow {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+        }
+
+        .footer {
+            margin-top: 2.5rem;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 <body>
-    <h1>H1</h1>
-    <p>タイトル</p>
-    <h2>H2</h2>
-    <h3>H3</h3>
+    <div class="container">
+        <img
+            src="https://prd.storage.lit.link/images/creators/310f3631-4b96-45c3-ac58-8681d9a7ce4f/icons/3e14224d-52fd-405e-8bc6-0e550ecd5151.png"
+            alt="Morune"
+            class="profile-icon"
+        >
+        <div class="name">Morune</div>
+        <div class="tagline">AIと音で"手のひらの音楽体験"をデザインするブランド</div>
+        <div class="bio">
+            Sunoと画像生成AIでつくる音のかたち。<br>
+            ミニCD「メロキー」を通して、音を"贈る・残す・触れる"新しい体験を届けます。
+        </div>
+
+        <div class="links">
+            <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="link-button">
+                <span class="link-icon">&#x1F4F7;</span>
+                <span class="link-label">Instagram</span>
+                <span class="arrow">&#x203A;</span>
+            </a>
+            <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="link-button">
+                <span class="link-icon">&#x1F3B5;</span>
+                <span class="link-label">SoundCloud</span>
+                <span class="arrow">&#x203A;</span>
+            </a>
+            <a href="https://morune.store" target="_blank" rel="noopener" class="link-button">
+                <span class="link-icon">&#x1F3E0;</span>
+                <span class="link-label">MORUNE公式サイト</span>
+                <span class="arrow">&#x203A;</span>
+            </a>
+            <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="link-button">
+                <span class="link-icon">&#x1F4DA;</span>
+                <span class="link-label">技術書典 / 書籍情報</span>
+                <span class="arrow">&#x203A;</span>
+            </a>
+            <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="link-button">
+                <span class="link-icon">&#x1F4AC;</span>
+                <span class="link-label">EMKO.ai</span>
+                <span class="arrow">&#x203A;</span>
+            </a>
+        </div>
+
+        <div class="footer">&copy; 2026 Morune</div>
+    </div>
 </body>
 </html>
