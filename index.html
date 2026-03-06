@@ -269,7 +269,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0;
-            min-height: 80vh;
+            min-height: 60vh;
         }
 
         .profile-img-side {
@@ -288,24 +288,40 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 5rem 4rem;
+            padding: 4rem 4rem;
             background: #f2ede6;
         }
 
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .profile-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .profile-header-text {}
+
         .profile-name {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-size: 1.6rem;
             font-weight: 400;
             font-style: italic;
-            margin-bottom: .3rem;
+            margin-bottom: .1rem;
         }
 
         .profile-role {
-            font-size: .75rem;
-            letter-spacing: .15em;
+            font-size: .7rem;
+            letter-spacing: .12em;
             color: #b8a080;
             text-transform: uppercase;
-            margin-bottom: 2rem;
         }
 
         .profile-bio {
@@ -444,8 +460,9 @@
             .works-row2 { grid-template-columns: 1fr; }
 
             .profile-layout { grid-template-columns: 1fr; }
-            .profile-img-side { height: 50vh; }
+            .profile-img-side { height: 40vh; }
             .profile-text-side { padding: 3rem 2rem; }
+            .profile-avatar { width: 56px; height: 56px; }
 
             .links-row { grid-template-columns: 1fr; }
             .lk { border-right: none; }
@@ -500,12 +517,12 @@
         </div>
         <div class="hero-right">
             <img
-                src="https://assets.st-note.com/production/uploads/images/163938797/profile_839eb2b4d99903cd1ef6c59025964b16.jpg"
-                alt="EMKO"
+                src="https://techbookfest.org/api/product/ogp/image/6T2GqQjWR3yTbEMGCv24tX"
+                alt="SUNO AIでつくる音のかたち"
                 class="hero-img"
                 data-speed="0.3"
             >
-            <div class="hero-caption">EMKO / Morune &mdash; 2026</div>
+            <div class="hero-caption">MORUNE &mdash; Sound you can touch</div>
         </div>
     </section>
 
@@ -567,15 +584,24 @@
         <div class="profile-layout">
             <div class="profile-img-side rv">
                 <img
-                    src="https://assets.st-note.com/production/uploads/images/163938797/profile_839eb2b4d99903cd1ef6c59025964b16.jpg"
-                    alt="EMKO"
+                    src="https://assets.st-note.com/production/uploads/images/44460278/2bcc3cdf374a6b14b7eb695dc3900e63.jpg"
+                    alt="Morune"
                     data-speed="0.2"
                 >
             </div>
             <div class="profile-text-side">
                 <div class="ed-label rv">02 &mdash; Profile</div>
-                <h2 class="profile-name rv d1">EMKO</h2>
-                <div class="profile-role rv d1">Morune 主宰 / リサーチャー / デジタルハリウッド大学大学院</div>
+                <div class="profile-header rv d1">
+                    <img
+                        src="https://assets.st-note.com/production/uploads/images/163938797/profile_839eb2b4d99903cd1ef6c59025964b16.jpg"
+                        alt="EMKO"
+                        class="profile-avatar"
+                    >
+                    <div class="profile-header-text">
+                        <h2 class="profile-name">EMKO</h2>
+                        <div class="profile-role">Morune 主宰 / リサーチャー / デジタルハリウッド大学大学院</div>
+                    </div>
+                </div>
                 <p class="profile-bio rv d2">
                     クリエイティブAIラボ（CAIL）所属。マーケティング戦略やイベント設計を専門とし、AIと音楽を組み合わせたブランド Morune を主宰しています。
                     AIでつくった音楽をキーホルダー型ミニCDに収め、スマホをかざすと音楽が再生される仕組みを制作。音を「贈る・残す・触れる」新しい体験づくりに取り組んでいます。
