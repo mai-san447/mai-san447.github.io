@@ -3,701 +3,683 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="EMKO / Morune - AIでつくった音楽を手に取れるかたちに。キーホルダー型ミニCDで音を届けるブランド。">
+    <meta name="description" content="EMKO / Morune - AIと音で"手のひらの音楽体験"をデザインするブランド">
     <meta property="og:title" content="EMKO / Morune">
-    <meta property="og:description" content="AIでつくった音楽を手に取れるかたちに。キーホルダー型ミニCDで音を届けるブランド。">
+    <meta property="og:description" content="AIと音で"手のひらの音楽体験"をデザインするブランド">
     <meta property="og:image" content="https://assets.st-note.com/production/uploads/images/163938797/profile_839eb2b4d99903cd1ef6c59025964b16.jpg">
     <title>EMKO / Morune</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+JP:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background: #faf8f5;
-            color: #1a1a1a;
-            overflow-x: hidden;
+            background: #fff;
+            color: #333;
+            line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
 
-        img { display: block; }
-        ::selection { background: #e8d5b0; color: #1a1a1a; }
+        img { display: block; max-width: 100%; }
+        a { color: inherit; }
 
-        /* --- reveal --- */
-        .rv { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(.22,1,.36,1), transform 1s cubic-bezier(.22,1,.36,1); }
-        .rv.vis { opacity: 1; transform: none; }
-        .rv.d1 { transition-delay: .15s; }
-        .rv.d2 { transition-delay: .3s; }
-        .rv.d3 { transition-delay: .45s; }
-
-        /* parallax helper */
-        [data-speed] { will-change: transform; }
-
-        /* --- topbar --- */
-        .topbar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 0 3rem; height: 52px;
-            display: flex; justify-content: space-between; align-items: center;
-            mix-blend-mode: difference;
+        /* --- header --- */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
         }
-        .topbar a { color: #fff; text-decoration: none; font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; }
-        .topbar-logo { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; letter-spacing: .02em !important; }
-        .topbar-nav { display: flex; gap: 2rem; }
 
-        /* hamburger for mobile */
-        .ham { display: none; background: none; border: none; cursor: pointer; }
-        .ham span { display: block; width: 22px; height: 1.5px; background: #fff; margin: 5px 0; }
+        .header-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            font-size: .95rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .header-nav { display: flex; gap: 1.5rem; }
+
+        .header-nav a {
+            font-size: .8rem;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .header-nav a:hover { color: #333; }
+
+        .ham { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .ham span { display: block; width: 20px; height: 2px; background: #333; margin: 4px 0; }
+
+        /* --- container --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
 
         /* --- hero --- */
         .hero {
-            min-height: 100vh;
-            min-height: 100dvh;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            position: relative;
-            overflow: hidden;
+            padding: 4rem 0;
+            background: #f6f6f6;
+            border-bottom: 1px solid #e0e0e0;
         }
 
-        .hero-left {
+        .hero-inner {
             display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 8rem 4rem 4rem;
-            position: relative;
-            z-index: 2;
+            gap: 3rem;
+            align-items: center;
         }
 
-        .hero-eyebrow {
-            font-size: .68rem;
-            letter-spacing: .3em;
-            text-transform: uppercase;
-            color: #b8a080;
-            margin-bottom: 1.5rem;
-        }
+        .hero-text { flex: 1; }
 
         .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.8rem, 6vw, 5rem);
-            font-weight: 400;
-            line-height: 1.1;
-            letter-spacing: -.03em;
-            margin-bottom: 2rem;
-        }
-
-        .hero-title em {
-            font-style: italic;
-            color: #c47a5a;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
         }
 
         .hero-desc {
-            font-size: .88rem;
-            font-weight: 300;
-            line-height: 2;
+            font-size: .85rem;
             color: #666;
-            max-width: 380px;
+            line-height: 2;
         }
 
-        .hero-right {
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f0ebe3;
+        .hero-img-wrap {
+            flex: 0 0 340px;
         }
 
         .hero-img {
-            width: 85%;
-            max-height: 80vh;
-            object-fit: contain;
+            width: 100%;
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0,0,0,.08);
         }
 
-        .hero-caption {
-            position: absolute;
-            bottom: 3rem;
-            right: 3rem;
-            writing-mode: vertical-rl;
-            font-size: .65rem;
-            letter-spacing: .2em;
-            color: rgba(255,255,255,.6);
+        /* --- section --- */
+        .section {
+            padding: 4rem 0;
+            border-bottom: 1px solid #e0e0e0;
         }
 
-        .hero-scroll {
-            position: absolute;
-            bottom: 3rem;
-            left: 4rem;
-            display: flex;
-            align-items: center;
-            gap: .8rem;
-            z-index: 2;
+        .section-label {
+            font-size: .75rem;
+            font-weight: 500;
+            color: #999;
+            margin-bottom: .5rem;
         }
 
-        .hero-scroll-line {
-            width: 48px; height: 1px;
-            background: #1a1a1a;
-            animation: line-anim 2s ease-in-out infinite;
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: .5rem;
         }
 
-        @keyframes line-anim {
-            0%,100% { transform: scaleX(1); transform-origin: left; }
-            50% { transform: scaleX(.4); transform-origin: left; }
+        .section-desc {
+            font-size: .85rem;
+            color: #888;
+            margin-bottom: 2.5rem;
         }
 
-        .hero-scroll span { font-size: .6rem; letter-spacing: .25em; text-transform: uppercase; color: #999; }
-
-        /* --- editorial section --- */
-        .ed-section {
-            padding: 10rem 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .ed-label {
-            font-size: .6rem;
-            letter-spacing: .35em;
-            text-transform: uppercase;
-            color: #b8a080;
-            margin-bottom: 1rem;
-        }
-
-        .ed-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4.5vw, 3.5rem);
-            font-weight: 400;
-            line-height: 1.15;
-            letter-spacing: -.02em;
+        /* --- works: featured card --- */
+        .works-featured {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 2rem;
             margin-bottom: 1.5rem;
         }
 
-        .ed-heading em { font-style: italic; color: #c47a5a; }
-
-        .ed-sub {
-            font-size: .85rem;
-            font-weight: 300;
-            color: #888;
-            line-height: 1.8;
-            max-width: 480px;
-        }
-
-        /* --- works --- */
-        .works-grid {
-            display: grid;
-            grid-template-columns: 1.2fr .8fr;
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .w-card {
+        .feat-card {
             text-decoration: none;
             color: inherit;
             display: block;
-            position: relative;
-        }
-
-        .w-card-img-wrap {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
             overflow: hidden;
-            border-radius: 4px;
+            transition: box-shadow .2s, border-color .2s;
         }
 
-        .w-card-img {
+        .feat-card:hover {
+            border-color: #ccc;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+        }
+
+        .feat-card-img {
             width: 100%;
-            aspect-ratio: 3 / 2;
+            aspect-ratio: 16 / 10;
             object-fit: contain;
-            background: #f5f0ea;
-            transition: transform .8s cubic-bezier(.22,1,.36,1);
+            background: #f8f8f8;
         }
 
-        .w-card:hover .w-card-img { transform: scale(1.04); }
-
-        .w-card-body { margin-top: 1.2rem; }
-
-        .w-card-num {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-style: italic;
-            color: rgba(0,0,0,.06);
-            position: absolute;
-            top: -1.5rem;
-            left: -.5rem;
+        .feat-card-body {
+            padding: 1.2rem 1.4rem;
         }
 
-        .w-card-tag {
-            font-size: .6rem;
-            letter-spacing: .2em;
-            text-transform: uppercase;
-            color: #b8a080;
-            margin-bottom: .4rem;
+        .feat-card-tag {
+            display: inline-block;
+            font-size: .65rem;
+            font-weight: 500;
+            color: #fff;
+            background: #555;
+            padding: .15rem .6rem;
+            border-radius: 3px;
+            margin-bottom: .5rem;
         }
 
-        .w-card-title {
-            font-size: 1.05rem;
+        .feat-card-title {
+            font-size: 1rem;
             font-weight: 700;
+            margin-bottom: .4rem;
             line-height: 1.5;
-            margin-bottom: .3rem;
         }
 
-        .w-card-desc {
-            font-size: .78rem;
-            color: #999;
+        .feat-card-desc {
+            font-size: .8rem;
+            color: #888;
             line-height: 1.7;
         }
 
-        .works-row2 {
+        /* --- works: grid cards --- */
+        .works-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
 
-        .w-mini {
+        .grid-card {
             text-decoration: none;
             color: inherit;
-            padding: 2rem;
-            border: 1px solid rgba(0,0,0,.06);
-            border-radius: 4px;
-            transition: border-color .3s, transform .4s cubic-bezier(.22,1,.36,1);
-            position: relative;
-        }
-
-        .w-mini:hover { border-color: rgba(0,0,0,.15); transform: translateY(-4px); }
-
-        .w-mini-icon { font-size: 1.8rem; margin-bottom: 1rem; }
-
-        .w-mini .w-card-tag { margin-bottom: .3rem; }
-        .w-mini .w-card-title { font-size: .92rem; }
-
-        /* --- profile --- */
-        .profile-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-            min-height: 60vh;
-        }
-
-        .profile-img-side {
-            position: relative;
-            overflow: hidden;
-            background: #eee;
-        }
-
-        .profile-img-side img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center center;
-        }
-
-        .profile-text-side {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 4rem 4rem;
-            background: #f2ede6;
+            align-items: flex-start;
+            gap: .8rem;
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            transition: border-color .2s, box-shadow .2s;
         }
 
-        .profile-header {
+        .grid-card:hover {
+            border-color: #ccc;
+            box-shadow: 0 2px 8px rgba(0,0,0,.05);
+        }
+
+        .grid-card-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            gap: 1.2rem;
-            margin-bottom: 1.8rem;
+            justify-content: center;
         }
 
-        .profile-avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            object-fit: cover;
-            flex-shrink: 0;
+        .grid-card-icon svg {
+            width: 20px;
+            height: 20px;
         }
 
-        .profile-header-text {}
+        .grid-card-text { flex: 1; min-width: 0; }
 
-        .profile-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 400;
-            font-style: italic;
+        .grid-card-tag {
+            font-size: .65rem;
+            color: #aaa;
             margin-bottom: .1rem;
         }
 
+        .grid-card-title {
+            font-size: .85rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: .2rem;
+        }
+
+        .grid-card-desc {
+            font-size: .72rem;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* icon colors */
+        .ico-shop { background: #e8f5e9; color: #43a047; }
+        .ico-music { background: #fff3e0; color: #ef6c00; }
+        .ico-gallery { background: #fce4ec; color: #d81b60; }
+        .ico-research { background: #e3f2fd; color: #1565c0; }
+        .ico-award { background: #fff8e1; color: #f9a825; }
+
+        /* --- profile --- */
+        .profile-bg { background: #f6f6f6; }
+
+        .profile-inner {
+            display: flex;
+            gap: 2.5rem;
+            align-items: flex-start;
+        }
+
+        .profile-avatar {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,.1);
+        }
+
+        .profile-body { flex: 1; }
+
+        .profile-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: .2rem;
+        }
+
         .profile-role {
-            font-size: .7rem;
-            letter-spacing: .12em;
-            color: #b8a080;
-            text-transform: uppercase;
+            font-size: .78rem;
+            color: #888;
+            margin-bottom: 1rem;
         }
 
         .profile-bio {
             font-size: .85rem;
-            line-height: 2.1;
             color: #555;
-            margin-bottom: 2rem;
+            line-height: 2;
+            margin-bottom: 1.2rem;
         }
 
         .profile-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: .5rem;
+            gap: .4rem;
         }
 
         .profile-tags span {
-            padding: .3rem .9rem;
-            border: 1px solid rgba(0,0,0,.1);
-            border-radius: 50px;
-            font-size: .68rem;
+            padding: .2rem .7rem;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: .7rem;
             color: #888;
-            letter-spacing: .03em;
         }
 
         /* --- links --- */
-        .links-section { background: #1a1a1a; color: #f0ede8; }
-
-        .links-section .ed-label { color: #c47a5a; }
-        .links-section .ed-heading { color: #f0ede8; }
-        .links-section .ed-sub { color: rgba(255,255,255,.4); }
-
-        .links-row {
+        .links-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-            margin-top: 3rem;
-            border-top: 1px solid rgba(255,255,255,.08);
+            grid-template-columns: repeat(2, 1fr);
+            gap: .8rem;
         }
 
-        .lk {
+        .link-card {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 1.8rem 1.5rem;
-            border-bottom: 1px solid rgba(255,255,255,.08);
-            border-right: 1px solid rgba(255,255,255,.08);
+            gap: .8rem;
+            padding: .9rem 1.1rem;
             text-decoration: none;
-            color: #f0ede8;
+            color: #333;
             font-size: .85rem;
-            transition: background .3s;
+            font-weight: 500;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            transition: border-color .2s, box-shadow .2s;
         }
 
-        .lk:nth-child(3n) { border-right: none; }
-
-        .lk:hover { background: rgba(255,255,255,.04); }
-
-        .lk-left { display: flex; align-items: center; gap: .8rem; }
-        .lk-ico { font-size: 1.1rem; }
-        .lk-arrow { font-size: .9rem; color: rgba(255,255,255,.25); transition: transform .3s, color .3s; }
-        .lk:hover .lk-arrow { transform: translateX(4px); color: #c47a5a; }
-
-        /* --- CTA --- */
-        .cta-section {
-            padding: 10rem 4rem;
-            text-align: center;
-            position: relative;
+        .link-card:hover {
+            border-color: #ccc;
+            box-shadow: 0 2px 8px rgba(0,0,0,.05);
         }
 
-        .cta-section .ed-heading { margin: 0 auto 1rem; }
-        .cta-section .ed-sub { margin: 0 auto 3rem; }
-
-        .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-        .cta-btn {
-            display: inline-flex;
+        .link-card-icon {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
             align-items: center;
-            gap: .5rem;
-            padding: 1rem 2.5rem;
+            justify-content: center;
+        }
+
+        .link-card-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .link-card-name { flex: 1; }
+
+        .link-card-arrow {
+            color: #ccc;
+            font-size: .75rem;
+            flex-shrink: 0;
+        }
+
+        .link-card:hover .link-card-arrow { color: #888; }
+
+        /* link icon colors */
+        .ico-ig { background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af); }
+        .ico-ig svg { color: #fff; }
+        .ico-sc { background: #ff5500; }
+        .ico-sc svg { color: #fff; }
+        .ico-store { background: #e8f5e9; }
+        .ico-store svg { color: #43a047; }
+        .ico-book { background: #e3f2fd; }
+        .ico-book svg { color: #1565c0; }
+        .ico-note { background: #e8f5e9; }
+        .ico-note svg { color: #2e7d32; }
+        .ico-x { background: #1a1a1a; }
+        .ico-x svg { color: #fff; }
+        .ico-paper { background: #ede7f6; }
+        .ico-paper svg { color: #5e35b1; }
+        .ico-film { background: #fff8e1; }
+        .ico-film svg { color: #f9a825; }
+
+        /* --- contact --- */
+        .contact-inner { text-align: center; }
+        .contact-inner .section-desc { margin-bottom: 1.5rem; }
+
+        .contact-btns {
+            display: flex;
+            gap: .8rem;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: .7rem 1.8rem;
             font-size: .82rem;
-            font-weight: 700;
-            letter-spacing: .06em;
-            border-radius: 0;
+            font-weight: 500;
             text-decoration: none;
-            transition: all .3s;
+            border-radius: 4px;
+            transition: opacity .2s;
         }
 
-        .cta-primary {
-            background: #1a1a1a;
-            color: #f0ede8;
-        }
-        .cta-primary:hover { background: #c47a5a; }
+        .btn:hover { opacity: .8; }
 
-        .cta-ghost {
-            background: transparent;
-            color: #1a1a1a;
-            border: 1.5px solid #1a1a1a;
-        }
-        .cta-ghost:hover { background: #1a1a1a; color: #f0ede8; }
+        .btn-primary { background: #333; color: #fff; }
+        .btn-outline { background: #fff; color: #333; border: 1px solid #333; }
 
         /* --- footer --- */
         footer {
-            padding: 2rem 4rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: .65rem;
-            color: #bbb;
-            letter-spacing: .1em;
-            border-top: 1px solid rgba(0,0,0,.06);
+            padding: 2rem;
+            text-align: center;
+            font-size: .7rem;
+            color: #aaa;
         }
-
-        footer a { color: #999; text-decoration: none; }
-        footer a:hover { color: #1a1a1a; }
 
         /* --- responsive --- */
         @media (max-width: 768px) {
-            .topbar { padding: 0 1.5rem; }
-            .topbar-nav { display: none; }
-            .topbar-nav.open {
+            .header-nav { display: none; }
+            .header-nav.open {
                 display: flex;
-                position: fixed; top: 52px; left: 0; right: 0;
-                flex-direction: column; padding: 2rem;
-                background: rgba(26,26,26,.95); backdrop-filter: blur(20px);
-                gap: 1.5rem;
+                flex-direction: column;
+                position: fixed;
+                top: 60px; left: 0; right: 0;
+                background: #fff;
+                border-bottom: 1px solid #e0e0e0;
+                padding: 1rem 2rem;
+                gap: 1rem;
             }
             .ham { display: block; }
 
-            .hero { grid-template-columns: 1fr; min-height: auto; }
-            .hero-left { padding: 7rem 2rem 3rem; }
-            .hero-right { height: auto; padding: 2rem; }
-            .hero-scroll { left: 2rem; bottom: 2rem; }
+            .hero-inner { flex-direction: column; }
+            .hero-img-wrap { flex: none; width: 100%; max-width: 360px; }
 
-            .ed-section { padding: 5rem 2rem; }
-
+            .works-featured { grid-template-columns: 1fr; }
             .works-grid { grid-template-columns: 1fr; }
-            .works-row2 { grid-template-columns: 1fr; }
 
-            .profile-layout { grid-template-columns: 1fr; }
-            .profile-img-side { height: 40vh; }
-            .profile-text-side { padding: 3rem 2rem; }
-            .profile-avatar { width: 56px; height: 56px; }
+            .profile-inner { flex-direction: column; }
+            .profile-avatar { width: 72px; height: 72px; }
 
-            .links-row { grid-template-columns: 1fr; }
-            .lk { border-right: none; }
+            .links-grid { grid-template-columns: 1fr; }
 
-            .cta-section { padding: 5rem 2rem; }
-
-            footer { flex-direction: column; gap: .5rem; padding: 2rem; }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title { font-size: 2.2rem; }
-            .ed-heading { font-size: 1.8rem; }
-            .cta-actions { flex-direction: column; align-items: center; }
-            .cta-btn { width: 100%; justify-content: center; }
+            .contact-btns { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- topbar -->
-    <div class="topbar">
-        <a href="#" class="topbar-logo">Morune</a>
-        <button class="ham" aria-label="Menu" onclick="document.querySelector('.topbar-nav').classList.toggle('open')">
-            <span></span><span></span><span></span>
-        </button>
-        <div class="topbar-nav">
-            <a href="#works">Works</a>
-            <a href="#profile">Profile</a>
-            <a href="#links">Links</a>
-            <a href="#contact">Contact</a>
+    <header class="header">
+        <div class="header-inner">
+            <a href="#" class="header-logo">EMKO / Morune</a>
+            <button class="ham" aria-label="Menu" onclick="document.querySelector('.header-nav').classList.toggle('open')">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="header-nav">
+                <a href="#works">Works</a>
+                <a href="#profile">Profile</a>
+                <a href="#links">Links</a>
+                <a href="#contact">Contact</a>
+            </nav>
         </div>
-    </div>
+    </header>
 
     <!-- hero -->
     <section class="hero">
-        <div class="hero-left">
-            <div class="hero-eyebrow rv">EMKO / Morune</div>
-            <h1 class="hero-title rv d1">
-                AIでつくった<br>
-                音楽を、<br>
-                <em>手に取れる<br>かたち</em>に。
-            </h1>
-            <p class="hero-desc rv d2">
-                AIで音楽をつくり、キーホルダー型ミニCDにして届ける。
-                スマホをかざすと音楽が流れる、ちょっと不思議な体験。
-                贈りものにも、思い出の記録にも。
-            </p>
-            <div class="hero-scroll">
-                <div class="hero-scroll-line"></div>
-                <span>Scroll</span>
+        <div class="container hero-inner">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    AIでつくった音楽を、<br>手に取れるかたちに。
+                </h1>
+                <p class="hero-desc">
+                    AIで音楽をつくり、キーホルダー型ミニCDにして届ける。<br>
+                    スマホをかざすと音楽が流れる、ちょっと不思議な体験。<br>
+                    贈りものにも、思い出の記録にも。
+                </p>
             </div>
-        </div>
-        <div class="hero-right">
-            <img
-                src="https://techbookfest.org/api/product/ogp/image/6T2GqQjWR3yTbEMGCv24tX"
-                alt="SUNO AIでつくる音のかたち"
-                class="hero-img"
-                data-speed="0.3"
-            >
-            <div class="hero-caption">MORUNE &mdash; Sound you can touch</div>
+            <div class="hero-img-wrap">
+                <img src="https://techbookfest.org/api/product/ogp/image/6T2GqQjWR3yTbEMGCv24tX" alt="SUNO AIでつくる音のかたち" class="hero-img">
+            </div>
         </div>
     </section>
 
     <!-- works -->
-    <section class="ed-section" id="works">
-        <div class="rv">
-            <div class="ed-label">01 &mdash; Works</div>
-            <h2 class="ed-heading">つくった<em>もの</em></h2>
-            <p class="ed-sub">キーホルダー型ミニCD、書籍、音楽。<br>これまでの活動をまとめています。</p>
-        </div>
-        <div class="works-grid">
-            <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="w-card rv">
-                <div class="w-card-num">01</div>
-                <div class="w-card-img-wrap">
-                    <img src="https://techbookfest.org/api/product/ogp/image/6T2GqQjWR3yTbEMGCv24tX" alt="SUNO AIでつくる音のかたち" class="w-card-img">
-                </div>
-                <div class="w-card-body">
-                    <div class="w-card-tag">Book / 技術書典</div>
-                    <div class="w-card-title">SUNO AIでつくる"音のかたち" ― AIミニCD制作入門</div>
-                    <div class="w-card-desc">AIでの楽曲づくりからジャケットデザイン、NFC設定まで。キーホルダー型ミニCD制作の全プロセスを解説。</div>
-                </div>
-            </a>
-            <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="w-card rv d1">
-                <div class="w-card-num">02</div>
-                <div class="w-card-img-wrap">
-                    <img src="https://assets.st-note.com/production/uploads/images/250502129/rectangle_large_type_2_8fcc10b28e2493bfcf822cb709531727.png" alt="Bookathon参加記録" class="w-card-img">
-                </div>
-                <div class="w-card-body">
-                    <div class="w-card-tag">Note / Blog</div>
-                    <div class="w-card-title">Bookathon参加記録</div>
-                    <div class="w-card-desc">3日間で本を書く、AIとの10時間。制作の裏側を記録。</div>
-                </div>
-            </a>
-        </div>
-        <div class="works-row2">
-            <a href="https://morune.store" target="_blank" rel="noopener" class="w-mini rv">
-                <div class="w-mini-icon">&#x1F4BF;</div>
-                <div class="w-card-tag">Shop</div>
-                <div class="w-card-title">MORUNE 公式ストア</div>
-                <div class="w-card-desc">ミニCDキーホルダー・グッズの販売</div>
-            </a>
-            <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="w-mini rv d1">
-                <div class="w-mini-icon">&#x1F3B6;</div>
-                <div class="w-card-tag">Music</div>
-                <div class="w-card-title">SoundCloud</div>
-                <div class="w-card-desc">AIで生成した楽曲を公開中</div>
-            </a>
-            <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="w-mini rv d2">
-                <div class="w-mini-icon">&#x1F4F8;</div>
-                <div class="w-card-tag">Gallery</div>
-                <div class="w-card-title">Instagram</div>
-                <div class="w-card-desc">制作過程やイベントの様子</div>
-            </a>
+    <section class="section" id="works">
+        <div class="container">
+            <div class="section-label">Works</div>
+            <h2 class="section-title">つくったもの</h2>
+            <p class="section-desc">キーホルダー型ミニCD、書籍、音楽。これまでの活動をまとめています。</p>
+
+            <div class="works-featured">
+                <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="feat-card">
+                    <img src="https://techbookfest.org/api/product/ogp/image/6T2GqQjWR3yTbEMGCv24tX" alt="SUNO AIでつくる音のかたち" class="feat-card-img">
+                    <div class="feat-card-body">
+                        <span class="feat-card-tag">Book / 技術書典</span>
+                        <div class="feat-card-title">SUNO AIでつくる"音のかたち" ― AIミニCD制作入門</div>
+                        <div class="feat-card-desc">AIでの楽曲づくりからジャケットデザイン、NFC設定まで。キーホルダー型ミニCD制作の全プロセスを解説。</div>
+                    </div>
+                </a>
+                <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="feat-card">
+                    <img src="https://assets.st-note.com/production/uploads/images/250502129/rectangle_large_type_2_8fcc10b28e2493bfcf822cb709531727.png" alt="Bookathon参加記録" class="feat-card-img">
+                    <div class="feat-card-body">
+                        <span class="feat-card-tag">Note / Blog</span>
+                        <div class="feat-card-title">Bookathon参加記録</div>
+                        <div class="feat-card-desc">3日間で本を書く、AIとの10時間。制作の裏側を記録。</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="works-grid">
+                <a href="https://morune.store" target="_blank" rel="noopener" class="grid-card">
+                    <div class="grid-card-icon ico-shop">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                    </div>
+                    <div class="grid-card-text">
+                        <div class="grid-card-tag">Shop</div>
+                        <div class="grid-card-title">MORUNE 公式ストア</div>
+                        <div class="grid-card-desc">ミニCDキーホルダー・グッズの販売</div>
+                    </div>
+                </a>
+                <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="grid-card">
+                    <div class="grid-card-icon ico-music">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                    </div>
+                    <div class="grid-card-text">
+                        <div class="grid-card-tag">Music</div>
+                        <div class="grid-card-title">SoundCloud</div>
+                        <div class="grid-card-desc">AIで生成した楽曲を公開中</div>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="grid-card">
+                    <div class="grid-card-icon ico-gallery">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    </div>
+                    <div class="grid-card-text">
+                        <div class="grid-card-tag">Gallery</div>
+                        <div class="grid-card-title">Instagram</div>
+                        <div class="grid-card-desc">制作過程やイベントの様子</div>
+                    </div>
+                </a>
+            </div>
+            <div class="works-grid">
+                <a href="https://msl.dhw.ac.jp/wp-content/uploads/2025/12/DHUITNJOURNAL2025_P018.pdf" target="_blank" rel="noopener" class="grid-card">
+                    <div class="grid-card-icon ico-research">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </div>
+                    <div class="grid-card-text">
+                        <div class="grid-card-tag">Research</div>
+                        <div class="grid-card-title">DHGS 研究ノート</div>
+                        <div class="grid-card-desc">AI活用による自治体障害福祉リスクアセスメントに関する学術論文</div>
+                    </div>
+                </a>
+                <a href="https://note.com/aicu/n/n96c0512032bf" target="_blank" rel="noopener" class="grid-card">
+                    <div class="grid-card-icon ico-award">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <div class="grid-card-text">
+                        <div class="grid-card-tag">Award</div>
+                        <div class="grid-card-title">SoraJam Tokyo 受賞「TM2S」</div>
+                        <div class="grid-card-desc">侘び寂びと四季をテーマにした五色の映像詩</div>
+                    </div>
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- profile -->
-    <section id="profile">
-        <div class="profile-layout">
-            <div class="profile-img-side rv">
-                <img
-                    src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=800&q=80"
-                    alt="Vinyl records"
-                    data-speed="0.2"
-                >
-            </div>
-            <div class="profile-text-side">
-                <div class="ed-label rv">02 &mdash; Profile</div>
-                <div class="profile-header rv d1">
-                    <img
-                        src="https://assets.st-note.com/production/uploads/images/163938797/profile_839eb2b4d99903cd1ef6c59025964b16.jpg"
-                        alt="EMKO"
-                        class="profile-avatar"
-                    >
-                    <div class="profile-header-text">
-                        <h2 class="profile-name">EMKO</h2>
-                        <div class="profile-role">Morune 主宰 / リサーチャー / デジタルハリウッド大学大学院</div>
+    <section class="section profile-bg" id="profile">
+        <div class="container">
+            <div class="section-label">Profile</div>
+            <h2 class="section-title" style="margin-bottom: 2rem;">プロフィール</h2>
+            <div class="profile-inner">
+                <img src="https://assets.st-note.com/production/uploads/images/163938797/profile_839eb2b4d99903cd1ef6c59025964b16.jpg" alt="EMKO" class="profile-avatar">
+                <div class="profile-body">
+                    <div class="profile-name">EMKO</div>
+                    <div class="profile-role">Morune主宰 / リサーチャー / デジタルハリウッド大学大学院</div>
+                    <p class="profile-bio">
+                        クリエイティブAIラボ（CAIL）所属。マーケティング戦略やイベント設計を専門とし、AIと音楽を組み合わせたブランドMoruneを主宰しています。
+                        AIでつくった音楽をキーホルダー型ミニCDに収め、スマホをかざすと音楽が再生される仕組みを制作。音を「贈る・残す・触れる」新しい体験づくりに取り組んでいます。
+                    </p>
+                    <div class="profile-tags">
+                        <span>Creative AI</span>
+                        <span>Marketing Strategy</span>
+                        <span>Event Design</span>
+                        <span>Social Implementation</span>
+                        <span>Narrative</span>
+                        <span>DHGS CAIL</span>
                     </div>
-                </div>
-                <p class="profile-bio rv d2">
-                    クリエイティブAIラボ（CAIL）所属。マーケティング戦略やイベント設計を専門とし、AIと音楽を組み合わせたブランド Morune を主宰しています。
-                    AIでつくった音楽をキーホルダー型ミニCDに収め、スマホをかざすと音楽が再生される仕組みを制作。音を「贈る・残す・触れる」新しい体験づくりに取り組んでいます。
-                </p>
-                <div class="profile-tags rv d3">
-                    <span>Creative AI</span>
-                    <span>Marketing Strategy</span>
-                    <span>Event Design</span>
-                    <span>Social Implementation</span>
-                    <span>Narrative</span>
-                    <span>DHGS CAIL</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- links -->
-    <section class="ed-section links-section" id="links">
-        <div class="rv">
-            <div class="ed-label">03 &mdash; Links</div>
-            <h2 class="ed-heading">各プラットフォーム</h2>
-        </div>
-        <div class="links-row rv">
-            <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="lk">
-                <div class="lk-left"><span class="lk-ico">&#x1F4F7;</span> Instagram</div>
-                <span class="lk-arrow">&rarr;</span>
-            </a>
-            <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="lk">
-                <div class="lk-left"><span class="lk-ico">&#x1F3B5;</span> SoundCloud</div>
-                <span class="lk-arrow">&rarr;</span>
-            </a>
-            <a href="https://morune.store" target="_blank" rel="noopener" class="lk">
-                <div class="lk-left"><span class="lk-ico">&#x1F3E0;</span> MORUNE Store</div>
-                <span class="lk-arrow">&rarr;</span>
-            </a>
-            <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="lk">
-                <div class="lk-left"><span class="lk-ico">&#x1F4DA;</span> 技術書典</div>
-                <span class="lk-arrow">&rarr;</span>
-            </a>
-            <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="lk">
-                <div class="lk-left"><span class="lk-ico">&#x270D;&#xFE0F;</span> note</div>
-                <span class="lk-arrow">&rarr;</span>
-            </a>
-            <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="lk">
-                <div class="lk-left"><span class="lk-ico">&#x1F4AC;</span> EMKO.ai (X)</div>
-                <span class="lk-arrow">&rarr;</span>
-            </a>
+    <section class="section" id="links">
+        <div class="container">
+            <div class="section-label">Links</div>
+            <h2 class="section-title" style="margin-bottom: 2rem;">各プラットフォーム</h2>
+            <div class="links-grid">
+                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-ig">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    </div>
+                    <span class="link-card-name">Instagram</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-sc">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                    </div>
+                    <span class="link-card-name">SoundCloud</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://morune.store" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-store">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                    </div>
+                    <span class="link-card-name">MORUNE Store</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-book">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                    </div>
+                    <span class="link-card-name">技術書典</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-note">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </div>
+                    <span class="link-card-name">note</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-x">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </div>
+                    <span class="link-card-name">EMKO.ai (X)</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://msl.dhw.ac.jp/wp-content/uploads/2025/12/DHUITNJOURNAL2025_P018.pdf" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-paper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <span class="link-card-name">DHGS 研究ノート</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://note.com/aicu/n/n96c0512032bf" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-film">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    </div>
+                    <span class="link-card-name">SoraJam Tokyo「TM2S」</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta-section" id="contact">
-        <div class="rv">
-            <div class="ed-label">04 &mdash; Contact</div>
-            <h2 class="ed-heading">お仕事の<em>ご相談</em></h2>
-            <p class="ed-sub">イベント設計、AIを活用した音楽体験、ワークショップ企画など、<br>お気軽にご連絡ください。</p>
-        </div>
-        <div class="cta-actions rv d1">
-            <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="cta-btn cta-primary">Instagram DM で問い合わせ</a>
-            <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="cta-btn cta-ghost">X (Twitter) で連絡</a>
+    <!-- contact -->
+    <section class="section" id="contact" style="border-bottom: none;">
+        <div class="container contact-inner">
+            <div class="section-label">Contact</div>
+            <h2 class="section-title">お仕事のご相談</h2>
+            <p class="section-desc">イベント設計、AIを活用した音楽体験、ワークショップ企画など、お気軽にご連絡ください。</p>
+            <div class="contact-btns">
+                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="btn btn-primary">Instagram DMで問い合わせ</a>
+                <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="btn btn-outline">X (Twitter)で連絡</a>
+            </div>
         </div>
     </section>
 
     <footer>
         <span>&copy; 2026 EMKO / Morune</span>
-        <a href="#">Back to top &uarr;</a>
     </footer>
 
     <script>
-        // reveal on scroll
-        const io = new IntersectionObserver(entries => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-        }, { threshold: 0.06, rootMargin: '0px 0px -60px 0px' });
-        document.querySelectorAll('.rv').forEach(el => io.observe(el));
-
-        // simple parallax
-        const pEls = document.querySelectorAll('[data-speed]');
-        window.addEventListener('scroll', () => {
-            const sy = window.scrollY;
-            pEls.forEach(el => {
-                const speed = parseFloat(el.dataset.speed);
-                const rect = el.parentElement.getBoundingClientRect();
-                const offset = (rect.top + sy - window.innerHeight / 2) * speed;
-                el.style.transform = `translateY(${-offset * 0.15}px) scale(1.08)`;
-            });
-        }, { passive: true });
-
-        // mobile nav
-        document.querySelectorAll('.topbar-nav a').forEach(a => {
-            a.addEventListener('click', () => document.querySelector('.topbar-nav').classList.remove('open'));
+        document.querySelectorAll('.header-nav a').forEach(a => {
+            a.addEventListener('click', () => document.querySelector('.header-nav').classList.remove('open'));
         });
     </script>
 </body>
