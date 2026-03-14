@@ -1,3 +1,5 @@
+
+
 # セットアップ作業記録
 
 ## 日付: 2026-03-06
@@ -39,6 +41,18 @@
 - `gh repo view` → mai-san447/maisan-447.github.io にアクセス OK
 
 ## セットアップ完了状況
-- [x] gh のインストール・PATH追加
-- [x] `gh auth login` でGitHubにログイン
-- [x] 動作確認（`gh repo view` 等）
+- [x] ghのインストール・PATH追加
+- [x] `gh auth login`でGitHubにログイン
+- [x] 動作確認（`gh repo view`等）
+
+---
+
+## 追記: 2026-03-14
+
+### 作業環境
+- 前回と同一環境（変更なし）
+- Claude Code（VS Code拡張 / Claude Opus 4.6）で作業
+
+### 確認事項
+- gitリモート接続: 正常（`git push`成功）
+- GitHub Pages: mainブランチ直下で稼働中
