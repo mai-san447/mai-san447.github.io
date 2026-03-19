@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/mn547/OneDrive/ドキュメント/GitHub/aicu-spring-fes-2026/**)",
+      "Bash(python -c \":*)",
+      "Bash(xxd downloads/day3/day3_01_sadoshima.md)",
+      "Bash(xxd downloads/sponsors/sponsors.md)"
+    ]
+  }
+}

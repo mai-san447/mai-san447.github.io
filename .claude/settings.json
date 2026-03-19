@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/articles/day3_05_kamikai_preview.html)",
+      "WebSearch",
+      "Bash(mv articles/day3_05_kamikai.md articles/day2_05_kamikai.md)",
+      "Bash(mv articles/day3_05_kamikai_en.md articles/day2_05_kamikai_en.md)",
+      "Bash(mv articles/day3_05_kamikai_preview.html articles/day2_05_kamikai_preview.html)",
+      "Bash(mv articles/day3_05_kamikai_en_preview.html articles/day2_05_kamikai_en_preview.html)",
+      "Bash(python -c \":*)"
+    ]
+  }
+}
