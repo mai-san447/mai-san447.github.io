@@ -4,6 +4,10 @@
 AICU記事の制作時は、以下のガイドに従うこと：
 https://github.com/mai-san447/aicu-media-guide/blob/master/article_production_guide.md
 
+## 寄稿フォーム登録
+記事完成後に「フォーム入力して」と言われたら、aicu-media-guideの `submit_article.py` を使う。
+詳細: https://github.com/mai-san447/aicu-media-guide/blob/master/article_production_guide.md#⑧-寄稿フォームに登録する
+
 ## 参考リソース
 Web技術全般および記事制作の参考リソースは、aicu-media-guideの記事制作ガイド末尾「参考になるサイト・記事」セクションに集約されている。
 https://github.com/mai-san447/aicu-media-guide/blob/master/article_production_guide.md#参考になるサイト記事
