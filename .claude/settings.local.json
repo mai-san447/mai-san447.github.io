@@ -5,7 +5,16 @@
       "Bash(python -c \":*)",
       "Bash(xxd downloads/day3/day3_01_sadoshima.md)",
       "Bash(xxd downloads/sponsors/sponsors.md)",
-      "Bash(find c:Usersmn547OneDriveドキュメントGitHubaicu-spring-fes-2026 -type f \\\\\\(-name *.md -o -name *.txt -o -name *.json \\\\\\))"
+      "Bash(find c:Usersmn547OneDriveドキュメントGitHubaicu-spring-fes-2026 -type f \\\\\\(-name *.md -o -name *.txt -o -name *.json \\\\\\))",
+      "Bash(python submit_article.py --title \"【レポート①】ライバルが仲間になった日——AIアートバトルから始まった「YOUKAI」の物語\" --desc \"プロ漫画家ハッシー橋本がAI漫画の現実を本音で語る。AIアートバトルから生まれた漫画「YOUKAI」誕生秘話をレポート。\" --genre \"イベント告知・レポート\" --no-interactive --no-open)",
+      "Bash(python submit_article.py --title \"【レポート②】「それ、何なんですか？」——AI漫画の基礎知識をプロ漫画家が聞いてみた\" --desc \"LoRAって何？プロ漫画家の素朴な疑問からAI漫画の基礎知識を解説。知らない側の質問が技術を解像度高く伝える。\" --genre \"イベント告知・レポート\" --no-interactive)",
+      "Bash(python submit_article.py --title \"【レポート③】「手で書いた方が早いかも、でもね」——AI漫画のリアルなワークフロー\" --desc \"AI漫画は実際どう作る？ChatGPTでプロンプト作成からStable Diffusionで画像生成まで、リアルなワークフローを公開。\" --genre \"イベント告知・レポート\" --no-interactive)",
+      "Bash(pandoc articles/sponsors.md -o downloads/sponsors.docx --resource-path=images)",
+      "Bash(cp articles/day2_05_kamikai.md downloads/kamikai/)",
+      "Bash(cp articles/day2_05_kamikai_en.md downloads/kamikai/)",
+      "Bash(cp images/ws1-slide.jpg images/ws2-slide.jpg images/day2_05_kamikai_intro.png images/day2_magicpen.png downloads/kamikai/images/)",
+      "Bash(pandoc articles/day2_05_kamikai.md --resource-path=images -o downloads/kamikai/day2_05_kamikai.docx)",
+      "Bash(pandoc articles/day2_05_kamikai_en.md --resource-path=images -o downloads/kamikai/day2_05_kamikai_en.docx)"
     ]
   }
 }

@@ -7,7 +7,24 @@
       "Bash(mv articles/day3_05_kamikai_en.md articles/day2_05_kamikai_en.md)",
       "Bash(mv articles/day3_05_kamikai_preview.html articles/day2_05_kamikai_preview.html)",
       "Bash(mv articles/day3_05_kamikai_en_preview.html articles/day2_05_kamikai_en_preview.html)",
-      "Bash(python -c \":*)"
+      "Bash(python -c \":*)",
+      "Bash(python create_pptx_v2.py)",
+      "Bash(ls -la \"c:/Users/mn547/OneDrive/ドキュメント/GitHub/aicu-impress-2026/docs/\"*.pptx)",
+      "WebFetch(domain:corp.aicu.ai)",
+      "WebFetch(domain:ja.aicu.ai)",
+      "Bash(python create_project_tools.py)",
+      "Bash(python daily_notify.py)",
+      "Bash(where soffice:*)",
+      "WebFetch(domain:www.masterrvdesigners.com)",
+      "Bash(find c:Usersmn547OneDriveドキュメントGitHubaicu-media-guide -type f -name *.md)",
+      "WebFetch(domain:docs.google.com)",
+      "Bash(python submit_article.py --title \"テスト記事\" --desc \"これはテスト用の概要です。60文字以上にする必要があるのでもう少し書きます。テストテスト。\" --genre \"やってみた\" --no-open --no-interactive)",
+      "Bash(python submit_article.py --title \"【レポート①】ライバルが仲間になった日——AIアートバトルから始まった「YOUKAI」の物語\" --desc \"AICU春フェス2026 Day1セッションレポート。現役プロ漫画家ハッシー橋本が、AI漫画家・殻尾とAICU編集長・白井暁彦とともに生成AI漫画の現実を語る。AIアートバトルから生まれた漫画「YOUKAI」の物語。\" --genre \"イベント告知・レポート\" --no-interactive)",
+      "Bash(python submit_article.py --title \"テスト\" --desc \"テスト概要テスト概要テスト概要テスト概要テスト概要テスト概要テスト概要テスト概要テスト概要\" --genre \"イベント告知・レポート\" --no-interactive --no-open)",
+      "Bash(python submit_article.py --title \"テスト\" --desc \"テスト概要テスト概要テスト概要テスト概要テスト概要テスト概要テスト概要テスト概要テスト概要\" --genre \"イベント告知・レポート\" --no-interactive)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\mn547\\OneDrive\\ドキュメント\\GitHub\\aicu-media-guide"
     ]
   }
 }
