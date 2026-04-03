@@ -56,7 +56,9 @@
       "Bash(mv \"dHHJk6bcEnbkKnHD7sPu19kBWmmHidmSZGo83QZ9zjCrTEv7YEp.docx\" \"その他/\")",
       "Bash(mv ASPIRATION.docx その他/)",
       "Bash(mv プロジェクト番号.docx その他/)",
-      "Bash(mv 最終整理.xlsx その他/)"
+      "Bash(mv 最終整理.xlsx その他/)",
+      "WebFetch(domain:www.atdj.jp)",
+      "WebFetch(domain:www.sanro.co.jp)"
     ],
     "additionalDirectories": [
       "c:\\Users\\mn547\\OneDrive\\ドキュメント\\GitHub\\aicu-media-guide",

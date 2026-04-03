@@ -69,7 +69,10 @@
       "Bash(rm -rf \"03_ラボ/人工現実（白井）/技術書展\")",
       "Bash(rmdir \"04_プロジェクト/MORUNE/運営・素材/技術書展\")",
       "Bash(rmdir \"04_プロジェクト/MORUNE/運営・素材/技術書展成果報告\")",
-      "Bash(find c:/Users/mn547/OneDrive/ドキュメント -type f \\\\\\(-name *履歴* -o -name *経歴* -o -name *resume* -o -name *CV* -o -name *career* -o -name *リクナビ* -o -name *職務* \\\\\\))"
+      "Bash(find c:/Users/mn547/OneDrive/ドキュメント -type f \\\\\\(-name *履歴* -o -name *経歴* -o -name *resume* -o -name *CV* -o -name *career* -o -name *リクナビ* -o -name *職務* \\\\\\))",
+      "Bash(cp articles/article1_overall_report.md downloads/)",
+      "Bash(cp articles/article2_safety_report.md downloads/)",
+      "Bash(rm -f downloads/article1_overall_report.docx downloads/article2_safety_report.docx)"
     ]
   }
 }

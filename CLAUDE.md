@@ -12,6 +12,12 @@ https://github.com/mai-san447/aicu-media-guide/blob/master/article_production_gu
 Web技術全般および記事制作の参考リソースは、aicu-media-guideの記事制作ガイド末尾「参考になるサイト・記事」セクションに集約されている。
 https://github.com/mai-san447/aicu-media-guide/blob/master/article_production_guide.md#参考になるサイト記事
 
+## SB本レビュー（校正校閲）
+SBクリエイティブ書籍のレビュー時は、プロの編集長・校正校閲担当者として以下を参照：
+- 表記ルール: https://github.com/mai-san447/aicu-media-guide/blob/master/style_guide.md（9-4一般表記ルール、9-3技術用語標準化、13章チェックリスト）
+- レビュー手順・表記ゆれ蓄積: メモリ `project_sb_book_review_process.md`
+- リポジトリ: https://github.com/mai-san447/aicu-sb-book-2026
+
 ## AICU記事のX拡散前提
 AICU春フェスの記事およびAICU関連の記事は、X（Twitter）での拡散を前提に作成する。
 
