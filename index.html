@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EMKO - AI Creative Producer / DCM修士。こうありたいを、つくる。">
+    <meta property="og:title" content="EMKO - AI Creative Producer">
+    <meta property="og:description" content="こうありたいを、つくる。デジタルハリウッド大学大学院 DCM修士。">
+    <meta property="og:image" content="emko-profile.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://emko.work/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@emkoai">
+    <meta name="twitter:title" content="EMKO - AI Creative Producer">
+    <meta name="twitter:description" content="こうありたいを、つくる。デジタルハリウッド大学大学院 DCM修士。">
+    <meta name="twitter:image" content="emko-profile.jpg">
+    <title>EMKO - AI Creative Producer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img { display: block; max-width: 100%; }
+        a { color: inherit; }
+
+        /* --- header --- */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250,250,250,.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,.06);
+        }
+
+        .header-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 56px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            font-size: .85rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: #1a1a1a;
+            letter-spacing: .03em;
+        }
+
+        .header-nav { display: flex; gap: 1.5rem; }
+
+        .header-nav a {
+            font-size: .75rem;
+            color: #888;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: .02em;
+            transition: color .2s;
+        }
+
+        .header-nav a:hover { color: #1a1a1a; }
+
+        .ham { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .ham span { display: block; width: 18px; height: 1.5px; background: #1a1a1a; margin: 4px 0; }
+
+        /* --- container --- */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- hero --- */
+        .hero {
+            padding: 5rem 0 4rem;
+        }
+
+        .hero-inner {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-text { flex: 1; }
+
+        .hero-eyebrow {
+            font-size: .7rem;
+            font-weight: 500;
+            color: #999;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            margin-bottom: .8rem;
+        }
+
+        .hero-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1.6;
+            margin-bottom: .5rem;
+            letter-spacing: -.01em;
+        }
+
+        .hero-subtitle {
+            font-size: .95rem;
+            color: #555;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem;
+        }
+
+        .hero-tags span {
+            padding: .25rem .7rem;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 100px;
+            font-size: .68rem;
+            color: #777;
+            font-weight: 500;
+        }
+
+        .hero-avatar-wrap {
+            flex: 0 0 200px;
+        }
+
+        .hero-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 24px rgba(0,0,0,.08);
+        }
+
+        /* --- section --- */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section + .section {
+            border-top: 1px solid #eee;
+        }
+
+        .section-label {
+            font-size: .65rem;
+            font-weight: 600;
+            color: #bbb;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            margin-bottom: .4rem;
+        }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: .4rem;
+        }
+
+        .section-desc {
+            font-size: .82rem;
+            color: #999;
+            margin-bottom: 2.5rem;
+        }
+
+        /* --- works: category tabs --- */
+        .works-cats {
+            display: flex;
+            gap: .5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .works-cat {
+            padding: .35rem .9rem;
+            border: 1px solid #ddd;
+            border-radius: 100px;
+            font-size: .72rem;
+            font-weight: 500;
+            color: #888;
+            background: #fff;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .works-cat:hover,
+        .works-cat.active {
+            background: #1a1a1a;
+            color: #fff;
+            border-color: #1a1a1a;
+        }
+
+        /* --- works: featured --- */
+        .works-featured {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feat-card {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: box-shadow .25s, transform .25s;
+        }
+
+        .feat-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,.07);
+            transform: translateY(-2px);
+        }
+
+        .feat-card-img {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: contain;
+            background: #f5f5f5;
+            filter: brightness(1.15);
+        }
+
+        .feat-card-body {
+            padding: 1.2rem 1.3rem;
+        }
+
+        .feat-card-tag {
+            display: inline-block;
+            font-size: .6rem;
+            font-weight: 600;
+            color: #fff;
+            padding: .15rem .55rem;
+            border-radius: 100px;
+            margin-bottom: .5rem;
+        }
+
+        .tag-book { background: #6366f1; }
+        .tag-product { background: #10b981; }
+        .tag-media { background: #f59e0b; }
+        .tag-research { background: #3b82f6; }
+        .tag-award { background: #ec4899; }
+        .tag-service { background: #8b5cf6; }
+
+        .feat-card-title {
+            font-size: .92rem;
+            font-weight: 700;
+            margin-bottom: .3rem;
+            line-height: 1.5;
+        }
+
+        .feat-card-desc {
+            font-size: .78rem;
+            color: #999;
+            line-height: 1.7;
+        }
+
+        /* --- works: compact grid --- */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .grid-card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: flex-start;
+            gap: .7rem;
+            padding: 1rem;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            transition: box-shadow .2s, transform .2s;
+        }
+
+        .grid-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,.05);
+            transform: translateY(-1px);
+        }
+
+        .grid-card-dot {
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: .45rem;
+        }
+
+        .dot-product { background: #10b981; }
+        .dot-media { background: #f59e0b; }
+        .dot-research { background: #3b82f6; }
+        .dot-award { background: #ec4899; }
+        .dot-service { background: #8b5cf6; }
+        .dot-book { background: #6366f1; }
+
+        .grid-card-text { flex: 1; min-width: 0; }
+
+        .grid-card-tag {
+            font-size: .6rem;
+            color: #bbb;
+            font-weight: 500;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        .grid-card-title {
+            font-size: .82rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: .15rem;
+        }
+
+        .grid-card-desc {
+            font-size: .72rem;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* --- career --- */
+        .career-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .career-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .career-item:last-child {
+            border-bottom: none;
+        }
+
+        .career-year {
+            flex: 0 0 100px;
+            font-size: .75rem;
+            font-weight: 600;
+            color: #bbb;
+            padding-top: .1rem;
+        }
+
+        .career-content { flex: 1; }
+
+        .career-title {
+            font-size: .88rem;
+            font-weight: 600;
+            margin-bottom: .15rem;
+        }
+
+        .career-desc {
+            font-size: .78rem;
+            color: #999;
+            line-height: 1.7;
+        }
+
+        /* --- links --- */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: .7rem;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            padding: .8rem 1rem;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-size: .82rem;
+            font-weight: 500;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            transition: box-shadow .2s, transform .2s;
+        }
+
+        .link-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,.05);
+            transform: translateY(-1px);
+        }
+
+        .link-card-icon {
+            flex-shrink: 0;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .link-card-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .link-card-name { flex: 1; }
+
+        .link-card-arrow {
+            color: #ddd;
+            font-size: .7rem;
+            flex-shrink: 0;
+            transition: color .2s;
+        }
+
+        .link-card:hover .link-card-arrow { color: #888; }
+
+        .ico-ig { background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af); }
+        .ico-ig svg { color: #fff; }
+        .ico-sc { background: #ff5500; }
+        .ico-sc svg { color: #fff; }
+        .ico-store { background: #e8f5e9; }
+        .ico-store svg { color: #43a047; }
+        .ico-book { background: #e8eaf6; }
+        .ico-book svg { color: #5c6bc0; }
+        .ico-note { background: #e8f5e9; }
+        .ico-note svg { color: #2e7d32; }
+        .ico-x { background: #1a1a1a; }
+        .ico-x svg { color: #fff; }
+        .ico-paper { background: #ede7f6; }
+        .ico-paper svg { color: #5e35b1; }
+        .ico-film { background: #fff8e1; }
+        .ico-film svg { color: #f9a825; }
+        .ico-hanasaku { background: #fce4ec; }
+        .ico-hanasaku svg { color: #e91e63; }
+        .ico-line { background: #e8f5e9; }
+        .ico-line svg { color: #06c755; }
+
+        /* --- contact --- */
+        .contact-inner { text-align: center; }
+        .contact-inner .section-desc { margin-bottom: 1.5rem; }
+
+        .contact-btns {
+            display: flex;
+            gap: .7rem;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: .65rem 1.8rem;
+            font-size: .8rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 100px;
+            transition: opacity .2s, transform .15s;
+        }
+
+        .btn:hover { opacity: .85; transform: translateY(-1px); }
+
+        .btn-primary { background: #1a1a1a; color: #fff; }
+        .btn-outline { background: #fff; color: #1a1a1a; border: 1px solid #1a1a1a; }
+
+        /* --- footer --- */
+        footer {
+            padding: 2.5rem 2rem;
+            text-align: center;
+            font-size: .68rem;
+            color: #ccc;
+        }
+
+        /* --- responsive --- */
+        @media (max-width: 768px) {
+            .header-nav { display: none; }
+            .header-nav.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 56px; left: 0; right: 0;
+                background: rgba(250,250,250,.98);
+                backdrop-filter: blur(12px);
+                border-bottom: 1px solid rgba(0,0,0,.06);
+                padding: 1rem 2rem;
+                gap: 1rem;
+            }
+            .ham { display: block; }
+
+            .hero { padding: 3rem 0 2.5rem; }
+            .hero-inner { flex-direction: column-reverse; text-align: center; }
+            .hero-avatar-wrap { flex: none; }
+            .hero-avatar { width: 140px; height: 140px; }
+            .hero-tags { justify-content: center; }
+
+            .works-featured { grid-template-columns: 1fr; }
+            .works-grid { grid-template-columns: 1fr; }
+
+            .career-item { flex-direction: column; gap: .3rem; }
+            .career-year { flex: none; }
+
+            .links-grid { grid-template-columns: 1fr; }
+
+            .contact-btns { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-inner">
+            <a href="#" class="header-logo">EMKO</a>
+            <button class="ham" aria-label="Menu" onclick="document.querySelector('.header-nav').classList.toggle('open')">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="header-nav">
+                <a href="#works">Works</a>
+                <a href="#links">Links</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- hero -->
+    <section class="hero">
+        <div class="container hero-inner">
+            <div class="hero-text">
+                <div class="hero-eyebrow">AI Creative Producer</div>
+                <h1 class="hero-title">
+                    こうありたいを、つくる。
+                </h1>
+                <p class="hero-subtitle">
+                    つくって、とどけて、体験するまで。
+                </p>
+                <div class="hero-tags">
+                    <span>AI × Physical Product</span>
+                    <span>Media Production</span>
+                    <span>Career Coaching</span>
+                    <span>DCM修士</span>
+                </div>
+            </div>
+            <div class="hero-avatar-wrap">
+                <img src="emko-profile.jpg" alt="EMKO" class="hero-avatar">
+            </div>
+        </div>
+    </section>
+
+    <!-- works -->
+    <section class="section" id="works">
+        <div class="container">
+            <div class="section-label">Works & Achievements</div>
+            <h2 class="section-title">つくったもの・実績</h2>
+            <p class="section-desc">プロダクト、書籍、メディア、研究、受賞。領域を横断して活動しています。</p>
+
+            <div class="works-featured">
+                <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="feat-card">
+                    <img src="https://techbookfest.org/api/product/ogp/image/6T2GqQjWR3yTbEMGCv24tX" alt="SUNO AIでつくる音のかたち" class="feat-card-img">
+                    <div class="feat-card-body">
+                        <span class="feat-card-tag tag-book">Book</span>
+                        <div class="feat-card-title">SUNO AIでつくる"音のかたち" ― AIミニCD制作入門</div>
+                        <div class="feat-card-desc">技術書典19出展。ラボ内100冊中 売上1位。AIでの楽曲づくりからNFC設定まで全プロセスを解説。</div>
+                    </div>
+                </a>
+                <a href="https://morune.store" target="_blank" rel="noopener" class="feat-card">
+                    <img src="morune.jpg" alt="Morune ミニCD" class="feat-card-img">
+                    <div class="feat-card-body">
+                        <span class="feat-card-tag tag-product">Product</span>
+                        <div class="feat-card-title">Morune ― AI × キーホルダー型ミニCD</div>
+                        <div class="feat-card-desc">AIで音楽をつくり、ミニCDに収めて届ける。スマホをかざすと音楽が流れる、手のひらの音楽体験。</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="works-grid" style="margin-bottom: 1rem;">
+                <a href="https://note.com/aicu/n/n96c0512032bf" target="_blank" rel="noopener" class="grid-card">
+                    <div class="grid-card-dot dot-award"></div>
+                    <div class="grid-card-text">
+                        <div class="grid-card-tag">Award</div>
+                        <div class="grid-card-title">SoraJam Tokyo 受賞「TM2S」</div>
+                        <div class="grid-card-desc">侘び寂びと四季をテーマにした五色の映像詩</div>
+                    </div>
+                </a>
+                <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="grid-card">
+                    <div class="grid-card-dot dot-media"></div>
+                    <div class="grid-card-text">
+                        <div class="grid-card-tag">Media</div>
+                        <div class="grid-card-title">Bookathon参加記録</div>
+                        <div class="grid-card-desc">3日間で本を書く、AIとの10時間の記録</div>
+                    </div>
+                </a>
+                <a href="https://msl.dhw.ac.jp/wp-content/uploads/2025/12/DHUITNJOURNAL2025_P018.pdf" target="_blank" rel="noopener" class="grid-card">
+                    <div class="grid-card-dot dot-research"></div>
+                    <div class="grid-card-text">
+                        <div class="grid-card-tag">Research</div>
+                        <div class="grid-card-title">DHGS 研究ノート</div>
+                        <div class="grid-card-desc">AI活用による自治体障害福祉リスクアセスメント</div>
+                    </div>
+                </a>
+            </div>
+            <div class="works-grid">
+                <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="grid-card">
+                    <div class="grid-card-dot dot-product"></div>
+                    <div class="grid-card-text">
+                        <div class="grid-card-tag">Music</div>
+                        <div class="grid-card-title">SoundCloud</div>
+                        <div class="grid-card-desc">AIで生成した楽曲を公開中</div>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="grid-card">
+                    <div class="grid-card-dot dot-product"></div>
+                    <div class="grid-card-text">
+                        <div class="grid-card-tag">Gallery</div>
+                        <div class="grid-card-title">Instagram @morune_project</div>
+                        <div class="grid-card-desc">制作過程やイベントの様子</div>
+                    </div>
+                </a>
+                <div class="grid-card" style="border-style: dashed; cursor: default;">
+                    <div class="grid-card-dot dot-book" style="opacity:.4"></div>
+                    <div class="grid-card-text">
+                        <div class="grid-card-tag">Coming — 2026.05</div>
+                        <div class="grid-card-title" style="opacity:.6">技術書典20 新刊</div>
+                        <div class="grid-card-desc">AI×物理プロダクト制作メソッド本</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- links -->
+    <section class="section" id="links">
+        <div class="container">
+            <div class="section-label">Links</div>
+            <h2 class="section-title" style="margin-bottom: 2rem;">各プラットフォーム</h2>
+            <div class="links-grid">
+                <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-x">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </div>
+                    <span class="link-card-name">X (@emkoai)</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://note.com/mizuhana_aoi" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-note">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </div>
+                    <span class="link-card-name">note</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-ig">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    </div>
+                    <span class="link-card-name">Instagram (@morune_project)</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://on.soundcloud.com/T2hJW1BEGLp3MZeqzq" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-sc">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                    </div>
+                    <span class="link-card-name">SoundCloud</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://morune.store" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-store">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                    </div>
+                    <span class="link-card-name">MORUNE Store</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://techbookfest.org/product/6T2GqQjWR3yTbEMGCv24tX" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-book">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                    </div>
+                    <span class="link-card-name">技術書典</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://msl.dhw.ac.jp/wp-content/uploads/2025/12/DHUITNJOURNAL2025_P018.pdf" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-paper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <span class="link-card-name">DHGS 研究ノート（PDF）</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://note.com/aicu/n/n96c0512032bf" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-film">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    </div>
+                    <span class="link-card-name">SoraJam Tokyo「TM2S」</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+                <a href="https://buy.stripe.com/fZu7sNa60epU0f1bWRefC00" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-card-icon ico-hanasaku">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <span class="link-card-name">ハナサク 就活コーチング</span>
+                    <span class="link-card-arrow">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- contact -->
+    <section class="section" id="contact">
+        <div class="container contact-inner">
+            <div class="section-label">Contact</div>
+            <h2 class="section-title">お仕事のご相談</h2>
+            <p class="section-desc">AI活用のプロダクト制作、メディア編集、ワークショップ企画など、お気軽にご連絡ください。</p>
+            <div class="contact-btns">
+                <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="btn btn-primary">X (Twitter) で連絡</a>
+                <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="btn btn-outline">Instagram DM</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <span>&copy; 2026 EMKO</span>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.header-nav a').forEach(a => {
+            a.addEventListener('click', () => document.querySelector('.header-nav').classList.remove('open'));
+        });
+    </script>
+</body>
+</html>
