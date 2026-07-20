@@ -956,6 +956,12 @@
     </footer>
 
     <script>
+        const currentUrl = new URL(window.location.href);
+        if (currentUrl.searchParams.has('fbclid')) {
+            currentUrl.searchParams.delete('fbclid');
+            history.replaceState(null, '', `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`);
+        }
+
         document.querySelectorAll('.header-nav a').forEach(a => {
             a.addEventListener('click', () => document.querySelector('.header-nav').classList.remove('open'));
         });
