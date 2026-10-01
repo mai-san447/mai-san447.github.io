@@ -616,6 +616,33 @@
         }
         .hero-title::first-line { background: linear-gradient(105deg, var(--ink) 5%, var(--accent) 92%); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .hero-subtitle { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--muted); margin-bottom: 2rem; }
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem;
+            margin-bottom: 1.4rem;
+        }
+        .hero-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .6rem;
+            min-height: 48px;
+            padding: .78rem 1.15rem;
+            border: 1px solid rgba(21, 19, 27, .12);
+            border-radius: 999px;
+            background: rgba(255,255,255,.72);
+            color: var(--ink);
+            font-size: .9rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(44, 38, 65, .06);
+            transition: transform .2s, box-shadow .2s, background .2s;
+        }
+        .hero-action-primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+        .hero-action:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(44, 38, 65, .12); }
+        .hero-action-arrow { color: var(--accent-2); font-size: 1.05rem; }
+        .hero-note { margin: 0 0 1.5rem; color: #817b89; font-size: .84rem; font-weight: 600; }
         .hero-tags { gap: .55rem; }
         .hero-tags span {
             padding: .42rem .85rem;
@@ -654,7 +681,8 @@
             margin-bottom: .75rem;
         }
         .section-title { font-size: clamp(1.8rem, 3.5vw, 3rem); letter-spacing: -.045em; line-height: 1.2; }
-        .section-desc { max-width: 670px; color: var(--muted); font-size: .94rem; }
+        .section-desc { max-width: 670px; color: var(--muted); font-size: 1rem; line-height: 1.9; }
+        .section-kicker { margin-bottom: .65rem; color: var(--accent); font-size: .72rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
 
         .works-featured { gap: 1rem; }
         .feat-card {
@@ -669,8 +697,8 @@
         .feat-card-tag { padding: .25rem .65rem; font-weight: 800; letter-spacing: .08em; }
         .tag-book { background: var(--accent); }
         .tag-product { background: var(--accent-2); }
-        .feat-card-title { font-size: 1rem; letter-spacing: -.015em; }
-        .feat-card-desc { color: var(--muted); }
+        .feat-card-title { font-size: 1.05rem; letter-spacing: -.015em; line-height: 1.55; }
+        .feat-card-desc { color: #625d6b; line-height: 1.85; }
 
         .works-grid { gap: .8rem; }
         .grid-card,
@@ -684,11 +712,21 @@
         .link-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(44, 38, 65, .10); }
         .grid-card-dot { width: 9px; height: 9px; box-shadow: 0 0 0 5px rgba(98,87,255,.07); }
         .grid-card-tag { color: var(--accent); font-weight: 800; letter-spacing: .08em; }
-        .grid-card-desc { color: var(--muted); }
+        .grid-card-desc { color: #625d6b; line-height: 1.75; }
+
+        .feat-card:focus-visible,
+        .grid-card:focus-visible,
+        .link-card:focus-visible,
+        .hero-action:focus-visible,
+        .btn:focus-visible,
+        .header-nav a:focus-visible {
+            outline: 3px solid rgba(98, 87, 255, .38);
+            outline-offset: 4px;
+        }
 
         #links .container { padding: 3rem; border-radius: 30px; background: rgba(255,255,255,.42); border: 1px solid rgba(255,255,255,.8); }
         .links-grid { gap: .75rem; }
-        .links-group-title { margin-top: 1.6rem; color: var(--ink); font-size: .78rem; }
+        .links-group-title { margin-top: 1.8rem; color: var(--ink); font-size: .82rem; }
         .link-card { padding: .95rem 1rem; border-radius: 16px; }
         .link-card-icon { width: 38px; height: 38px; border-radius: 11px; }
         .link-card-arrow { font-size: 0; }
@@ -726,12 +764,20 @@
             .hero-inner { gap: 2.5rem; }
             .hero-text { width: 100%; min-width: 0; }
             .hero-title { max-width: 100%; font-size: clamp(2.45rem, 11vw, 3.4rem); letter-spacing: -.075em; }
+            .hero-actions { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+            .hero-action { padding-left: .8rem; padding-right: .8rem; }
             .hero-tags { max-width: 100%; }
             .hero-avatar-wrap { flex-basis: auto; }
             .hero-avatar { width: 210px; height: 230px; }
             .section { padding: 4.5rem 0; }
             #links .container { padding: 2rem 1.2rem; border-radius: 24px; }
             .contact-inner { margin: 0 .8rem; padding: 4rem 1.2rem; border-radius: 26px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-actions { grid-template-columns: 1fr; }
+            .hero-action { width: 100%; }
+            .section-desc { font-size: .96rem; }
         }
     </style>
 </head>
@@ -760,8 +806,13 @@
                     「こうありたい」を<br>かたちにする
                 </h1>
                 <p class="hero-subtitle">
-                    AIとアイデアを、手に取れる作品へ ── 人に届く体験へ
+                    AIとアイデアを、手に取れる作品へ<br>人に届く体験まで設計します
                 </p>
+                <div class="hero-actions">
+                    <a href="#works" class="hero-action hero-action-primary">作品を見る <span class="hero-action-arrow">↓</span></a>
+                    <a href="#contact" class="hero-action">相談する <span class="hero-action-arrow">↗</span></a>
+                </div>
+                <p class="hero-note">PRODUCT / MEDIA / RESEARCH / CAREER</p>
                 <div class="hero-tags">
                     <span>AI × Physical Product</span>
                     <span>Media Production</span>
@@ -778,8 +829,9 @@
     <!-- works -->
     <section class="section" id="works">
         <div class="container">
+            <div class="section-kicker">Selected works</div>
             <div class="section-label section-heading">Works & Achievements</div>
-            <p class="section-desc">プロダクト、書籍、メディア、研究、受賞。領域を横断して活動しています。</p>
+            <p class="section-desc">つくるだけで終わらせず、届け方と体験まで設計した仕事をまとめています</p>
 
             <div class="works-featured">
                 <a href="https://techbookfest.org/product/t4QEuAAarJXRx4tF7mmG6B" target="_blank" rel="noopener" class="feat-card">
@@ -866,7 +918,9 @@
     <!-- links -->
     <section class="section" id="links">
         <div class="container">
-            <div class="section-label section-heading" style="margin-bottom: 2rem;">Links</div>
+            <div class="section-kicker">Explore more</div>
+            <div class="section-label section-heading">Links</div>
+            <p class="section-desc" style="margin-bottom: 2rem;">発信、作品、サービスへの入口を目的別にまとめています</p>
             <div class="links-grid">
                 <h3 class="links-group-title">発信・SNS</h3>
                 <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="link-card">
@@ -943,7 +997,7 @@
         <div class="container contact-inner">
             <div class="section-label">Contact</div>
             <h2 class="section-title">お仕事のご相談</h2>
-            <p class="section-desc">AI活用のプロダクト制作、メディア編集、ワークショップ企画など、お気軽にご連絡ください。</p>
+            <p class="section-desc">AIを活用したプロダクト制作、メディア編集、ワークショップ企画など<br>構想段階からご相談いただけます</p>
             <div class="contact-btns">
                 <a href="https://twitter.com/emkoai" target="_blank" rel="noopener" class="btn btn-primary">X (Twitter) で連絡</a>
                 <a href="https://www.instagram.com/morune_project/" target="_blank" rel="noopener" class="btn btn-outline">Instagram DM</a>
