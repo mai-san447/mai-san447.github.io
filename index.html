@@ -32,6 +32,17 @@
 
         img { display: block; max-width: 100%; }
         a { color: inherit; }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
 
         /* --- header --- */
         .header {
@@ -592,7 +603,7 @@
         .hero-inner {
             position: relative;
             gap: clamp(3rem, 7vw, 6rem);
-            min-height: 620px;
+            min-height: 520px;
             padding: clamp(3rem, 6vw, 5.5rem);
             overflow: hidden;
             border: 1px solid rgba(255,255,255,.12);
@@ -640,7 +651,7 @@
             text-wrap: balance;
         }
         .hero-title::first-line { background: linear-gradient(105deg, #fff 8%, #b8b0ff 92%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .hero-subtitle { font-size: clamp(1rem, 2vw, 1.25rem); color: rgba(255,255,255,.72); margin-bottom: 2rem; }
+        .hero-subtitle { max-width: 520px; font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,.76); margin-bottom: 2rem; }
         .hero-actions {
             display: flex;
             flex-wrap: wrap;
@@ -676,7 +687,7 @@
             box-shadow: none;
             color: rgba(255,255,255,.72);
         }
-        .hero-avatar-wrap { flex: 0 0 300px; position: relative; }
+        .hero-avatar-wrap { flex: 0 0 340px; position: relative; }
         .hero-avatar-wrap::before {
             content: '';
             position: absolute;
@@ -688,8 +699,8 @@
         }
         .hero-avatar {
             position: relative;
-            width: 300px;
-            height: 330px;
+            width: 340px;
+            height: 370px;
             border: 8px solid rgba(255,255,255,.92);
             border-radius: 34% 66% 55% 45% / 45% 38% 62% 55%;
             box-shadow: var(--shadow);
@@ -845,9 +856,7 @@
         <div class="container hero-inner">
             <div class="hero-text">
                 <div class="hero-eyebrow">AI Creative Producer</div>
-                <h1 class="hero-title">
-                    「こうありたい」を<br>かたちにする
-                </h1>
+                <h1 class="sr-only">EMKO｜AI Creative Producer</h1>
                 <p class="hero-subtitle">
                     AIとアイデアを、手に取れる作品へ<br>人に届く体験まで設計します
                 </p>
