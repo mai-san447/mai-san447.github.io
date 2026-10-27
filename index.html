@@ -762,6 +762,8 @@
         }
         .feat-card:not(:first-child) .feat-card-img { height: 100%; aspect-ratio: auto; }
         .feat-card:not(:first-child) .feat-card-body { display: flex; flex-direction: column; justify-content: center; padding: 1.15rem; }
+        /* 右の列は幅がせまく、補足が途中で折り返すので、いつも次の行に置く */
+        .feat-card:not(:first-child) .feat-card-sales small { flex-basis: 100%; }
         .feat-card-img { aspect-ratio: 4 / 3; filter: none; background: #eeecf2; }
         .feat-card-body { padding: 1.35rem 1.45rem 1.55rem; }
         .feat-card-tag { padding: .25rem .65rem; font-weight: 800; letter-spacing: .08em; }
