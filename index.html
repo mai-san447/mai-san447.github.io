@@ -741,7 +741,7 @@
         #works { position: relative; }
         .works-featured {
             grid-template-columns: 1.25fr 1fr;
-            grid-template-rows: repeat(3, 1fr);
+            grid-template-rows: repeat(4, 1fr);
             gap: 1rem;
         }
         .feat-card {
@@ -751,8 +751,8 @@
             box-shadow: 0 10px 35px rgba(43, 36, 67, .06);
         }
         .feat-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); }
-        .feat-card:first-child { grid-row: 1 / 4; }
-        /* 右の3枚と高さをそろえるため、大きな枠は写真を伸ばして余白をなくす */
+        .feat-card:first-child { grid-row: 1 / -1; }
+        /* 右の4枚と高さをそろえるため、大きな枠は写真を伸ばして余白をなくす */
         .feat-card:first-child { display: flex; flex-direction: column; }
         .feat-card:first-child .feat-card-img { flex: 1; min-height: 0; aspect-ratio: auto; object-fit: cover; background: #0a0e1c; }
         .feat-card:not(:first-child) {
@@ -951,6 +951,15 @@
                         <div class="feat-card-title">MORUNE 25143 ― やりたいことを星に預けるアプリ</div>
                         <div class="feat-card-desc">今はできない「やりたいこと」を、本物の星空に預けておく。いつか帰ってきたときに、もう一度えらべるWebアプリ。G's ACADEMY 卒業制作</div>
                         <div class="feat-card-sales"><strong>アプリを開く →</strong><small>スマホでもパソコンでも、登録なしで使えます</small></div>
+                    </div>
+                </a>
+                <a href="https://emko.work/nejihachi/" target="_blank" rel="noopener" class="feat-card">
+                    <img src="nejihachi-cover.webp" alt="絵本『ネジハチと かぜの たにの ぼうけん』の表紙。歯車のミツバチと電線のクワガタ" class="feat-card-img">
+                    <div class="feat-card-body">
+                        <span class="feat-card-tag tag-book">Picture book</span>
+                        <div class="feat-card-title">絵本「ネジハチ」シリーズ</div>
+                        <div class="feat-card-desc">ねじと工具でできた虫たちが、森のこまりごとを直しにいく絵本。KDPで紙の本とKindle版を出版</div>
+                        <div class="feat-card-sales"><strong>紹介ページを見る →</strong><small>グッズはSUZURIで販売中</small></div>
                     </div>
                 </a>
                 <a href="https://morune.store/#book-suno-v55" target="_blank" rel="noopener" class="feat-card">
