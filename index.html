@@ -150,19 +150,6 @@
             font-weight: 500;
         }
 
-        .hero-avatar-wrap {
-            flex: 0 0 200px;
-        }
-
-        .hero-avatar {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #fff;
-            box-shadow: 0 4px 24px rgba(0,0,0,.08);
-        }
-
         /* --- section --- */
         .section {
             padding: 4rem 0;
@@ -545,8 +532,6 @@
 
             .hero { padding: 3rem 0 2.5rem; }
             .hero-inner { flex-direction: column-reverse; text-align: center; }
-            .hero-avatar-wrap { flex: none; }
-            .hero-avatar { width: 140px; height: 140px; }
             .hero-tags { justify-content: center; }
 
             .works-featured { grid-template-columns: 1fr; }
@@ -707,9 +692,23 @@
             box-shadow: none;
             color: var(--muted);
         }
+        /* 顔の絵は上ではなく、連絡の前のプロフィールに置く（だれが引き受けるかを、相談の直前に見せる） */
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: clamp(2rem, 5vw, 4rem);
+            padding: clamp(2rem, 4vw, 3rem);
+            border: 1px solid rgba(255,255,255,.9);
+            border-radius: 30px;
+            background: var(--paper);
+            box-shadow: 0 10px 35px rgba(92, 62, 40, .06);
+        }
+        .profile-name { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: .2rem; }
+        .profile-role { color: var(--accent); font-size: .8rem; font-weight: 800; letter-spacing: .14em; margin-bottom: 1rem; }
+        .profile-desc { color: var(--muted); line-height: 1.9; }
         /* 手描きの絵なので、丸いシールのように見せる。うしろの丸はセーターの色を少しずらして重ねる */
-        .hero-avatar-wrap { flex: 0 0 220px; position: relative; }
-        .hero-avatar-wrap::before {
+        .profile-avatar-wrap { flex: 0 0 200px; position: relative; }
+        .profile-avatar-wrap::before {
             content: '';
             position: absolute;
             inset: 0;
@@ -717,10 +716,10 @@
             background: var(--sweater);
             transform: translate(10px, 10px);
         }
-        .hero-avatar {
+        .profile-avatar {
             position: relative;
-            width: 220px;
-            height: 220px;
+            width: 200px;
+            height: 200px;
             border: 3px solid var(--ink);
             border-radius: 50%;
             background: #fff;
@@ -828,8 +827,7 @@
         footer { color: var(--muted); padding: 3rem 2rem; }
 
         @media (prefers-reduced-motion: no-preference) {
-            .hero-text, .hero-avatar-wrap { animation: rise .7s cubic-bezier(.22,1,.36,1) both; }
-            .hero-avatar-wrap { animation-delay: .12s; }
+            .hero-text { animation: rise .7s cubic-bezier(.22,1,.36,1) both; }
             @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
         }
 
@@ -844,8 +842,9 @@
             .hero-actions { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
             .hero-action { padding-left: .8rem; padding-right: .8rem; }
             .hero-tags { max-width: 100%; }
-            .hero-avatar-wrap { flex-basis: auto; }
-            .hero-avatar { width: 150px; height: 150px; }
+            .profile-card { flex-direction: column; text-align: center; padding: 2rem 1.2rem; border-radius: 24px; }
+            .profile-avatar-wrap { flex-basis: auto; }
+            .profile-avatar { width: 150px; height: 150px; }
             .works-featured { grid-template-columns: 1fr; grid-template-rows: auto; }
             .feat-card:first-child { grid-row: auto; }
             .feat-card:first-child .feat-card-img { flex: none; aspect-ratio: 4 / 3; }
@@ -875,6 +874,7 @@
                 <a href="#services">Services</a>
                 <a href="#works">Works</a>
                 <a href="#links">Links</a>
+                <a href="#profile">Profile</a>
                 <a href="#contact">Contact</a>
             </nav>
         </div>
@@ -900,9 +900,6 @@
                     <span>ワークショップ</span>
                     <span>DCM修士</span>
                 </div>
-            </div>
-            <div class="hero-avatar-wrap">
-                <img src="emko-icon.jpg" alt="EMKO（えむこ）の にがおえ" class="hero-avatar">
             </div>
         </div>
     </section>
@@ -1124,6 +1121,24 @@
                     <span class="link-card-name">ハナサク 就活コーチング</span>
                     <span class="link-card-arrow">&rarr;</span>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- profile -->
+    <section class="section" id="profile">
+        <div class="container">
+            <div class="section-kicker">Who I am</div>
+            <div class="section-label section-heading">Profile</div>
+            <div class="profile-card">
+                <div class="profile-avatar-wrap">
+                    <img src="emko-icon.jpg" alt="EMKO（えむこ）の にがおえ" class="profile-avatar" width="200" height="200" loading="lazy">
+                </div>
+                <div class="profile-text">
+                    <p class="profile-name">EMKO（えむこ）</p>
+                    <p class="profile-role">AI CREATIVE PRODUCER</p>
+                    <p class="profile-desc">AIを使った記事・本・作品づくりを、企画から読者に届くところまで手がけています。デジタルハリウッド大学大学院でデジタルコンテンツマネジメント修士（DCM）を修了。</p>
+                </div>
             </div>
         </div>
     </section>
